@@ -8,13 +8,21 @@ public class MainButtonClick : MonoBehaviour
 
     public void openModal(GameObject gameObject)
     {
-        backdrop.SetActive(true);
         gameObject.SetActive(true);
     }
 
     public void closeModal(GameObject gameObject)
     {
-        backdrop.SetActive(false);
         gameObject.SetActive(false);
+    }
+
+    public void activateBackdrop()
+    {
+        backdrop.SetActive(true);
+    }
+
+    public void deactivateBackdrop()
+    {
+        backdrop.SetActive(false);
     }
 }
