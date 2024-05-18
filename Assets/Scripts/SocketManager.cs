@@ -1,8 +1,8 @@
 using System;
-using System.Collections.Generic;
 using SocketIOClient;
 using SocketIOClient.Newtonsoft.Json;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class SocketManager : MonoBehaviour
 {
@@ -48,9 +48,9 @@ public class SocketManager : MonoBehaviour
     private void RegisterBaseEvents()
     {
         _client.On("user/created", (response) => { this._id = response.GetValue<NewClient>(0).id; });
-        _client.On("room/updated", (response) =>
+        _client.OnUnityThread("room/updated", (response) =>
         {
-            Debug.Log(response);
+            SceneManager.LoadScene("Lobby");
         });
     }
 
