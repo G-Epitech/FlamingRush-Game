@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace Lobby {
 
@@ -13,24 +14,24 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private Sprite playerTitleSprite;
     [SerializeField] private Sprite playerReadySprite;
     [SerializeField] private Sprite playerNotReadySprite;
-    [SerializeField] private SpriteRenderer player1SpriteRenderer;
-    [SerializeField] private SpriteRenderer player2SpriteRenderer;
-    [SerializeField] private SpriteRenderer player3SpriteRenderer;
-    [SerializeField] private SpriteRenderer player4SpriteRenderer;
+    [SerializeField] private Image player1SpriteRenderer;
+    [SerializeField] private Image player2SpriteRenderer;
+    [SerializeField] private Image player3SpriteRenderer;
+    [SerializeField] private Image player4SpriteRenderer;
     [SerializeField] private TextMeshProUGUI player1Text;
     [SerializeField] private TextMeshProUGUI player2Text;
     [SerializeField] private TextMeshProUGUI player3Text;
     [SerializeField] private TextMeshProUGUI player4Text;
-    [SerializeField] private SpriteRenderer player1YouSpriteRenderer;
-    [SerializeField] private SpriteRenderer player2YouSpriteRenderer;
-    [SerializeField] private SpriteRenderer player3YouSpriteRenderer;
-    [SerializeField] private SpriteRenderer player4YouSpriteRenderer;
+    [SerializeField] private Image player1YouSpriteRenderer;
+    [SerializeField] private Image player2YouSpriteRenderer;
+    [SerializeField] private Image player3YouSpriteRenderer;
+    [SerializeField] private Image player4YouSpriteRenderer;
 
     private void SetPlayer(int playerNumber, string playerName, bool isYou, bool isReady)
     {
-        SpriteRenderer spriteRenderer = null;
+        Image spriteRenderer = null;
         TextMeshProUGUI text = null;
-        SpriteRenderer youSpriteRenderer = null;
+        Image youSpriteRenderer = null;
         
         switch (playerNumber)
         {
@@ -59,30 +60,36 @@ public class PlayerController : MonoBehaviour
         if (isYou)
         {
             youSpriteRenderer.sprite = youSprite;
+            youSpriteRenderer.color = Color.white;
         }
         else
         {
             youSpriteRenderer.sprite = noPlayerSprite;
+            youSpriteRenderer.color = Color.clear;
         }
 
         if (playerName == "")
         {
             spriteRenderer.sprite = noPlayerSprite;
+            spriteRenderer.color = Color.clear;
             text.text = "";
         }
         else
         {
             spriteRenderer.sprite = playerTitleSprite;
+            spriteRenderer.color = Color.white;
             text.text = playerName;
         }
 
         if (isReady)
         {
             spriteRenderer.sprite = playerReadySprite;
+            spriteRenderer.color = Color.white;
         }
         else
         {
             spriteRenderer.sprite = playerNotReadySprite;
+            spriteRenderer.color = Color.white;
         }
     }
 
