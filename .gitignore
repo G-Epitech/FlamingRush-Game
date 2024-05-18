@@ -75,3 +75,6 @@ crashlytics-build.properties
 Assets/TextMesh Pro/Resources/*.asset
 Assets/TextMesh Pro/Resources/*.otf
 Assets/TextMesh Pro/Resources/*.ttf
+Assets/Plugins/CodeAssist*
+Assets/Adaptive Performance*
+.vsconfig
