@@ -26,7 +26,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private SpriteRenderer player3YouSpriteRenderer;
     [SerializeField] private SpriteRenderer player4YouSpriteRenderer;
 
-    public void SetPlayer(int playerNumber, string playerName, bool isYou, bool isReady)
+    private void SetPlayer(int playerNumber, string playerName, bool isYou, bool isReady)
     {
         SpriteRenderer spriteRenderer = null;
         TextMeshProUGUI text = null;
