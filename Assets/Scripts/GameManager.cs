@@ -4,16 +4,16 @@ using SocketIOClient.Newtonsoft.Json;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class SocketManager : MonoBehaviour
+public class GameManager : MonoBehaviour
 {
-    public static SocketManager Instance;
+    public static GameManager Instance;
 
     private SocketIOUnity _client;
     private string _id;
 
     private async void Start()
     {
-        if (SocketManager.Instance == null)
+        if (GameManager.Instance == null)
             return;
         var uri = new Uri("http://localhost:3000");
         _client = new SocketIOUnity(uri, new SocketIOOptions
