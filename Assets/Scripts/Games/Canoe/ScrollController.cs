@@ -6,35 +6,67 @@ namespace Games.Canoe
 {
     public class ScrollController : MonoBehaviour
     {
-        public ScrollRect scrollRect; // Référence au ScrollRect
-        public GameObject character; // Référence au RectTransform du personnage
-
-        public float position1 = -2f;
-        public float position2 = -0.75f;
-        public float position3 = 0.75f;
-        public float position4 = 2f;
-        public int currentPosition = 2;
         
-        public void Update()
+        [SerializeField] public float[] lanesY = new float[] { 3f, 1f, -1f, -3f };
+        private int _currentLaneIndex;
+        [SerializeField] public float moveSpeed = 5f;
+        [SerializeField] public ScrollRect scrollRect;
+        [SerializeField] public GameObject player;
+        [SerializeField] public float velocityThreshold = 100f;
+        [SerializeField] public float moveCooldown = 0.1f;
+        private bool _isMoving;
+
+        private void Start()
         {
-            var scrollPosition = scrollRect.velocity.y;
-            var characterPosition = character.transform.localPosition;
+            _currentLaneIndex = 0;
+            _isMoving = false;
+        }
+        
+        private void Update()
+        {
+            var velocity = scrollRect.velocity;
+
+            if (!_isMoving && Mathf.Abs(velocity.y) > velocityThreshold)
+            {
+                switch (velocity.y)
+                {
+                    case > 0:
+                        StartCoroutine(MoveUp());
+                        break;
+                    case < 0:
+                        StartCoroutine(MoveDown());
+                        break;
+                }
+
+                scrollRect.velocity = Vector2.zero;
+            }
+
+            var targetPosition = new Vector3(player.transform.position.x, lanesY[_currentLaneIndex], player.transform.position.z);
+            player.transform.position = Vector3.MoveTowards(player.transform.position, targetPosition, moveSpeed * Time.deltaTime);
             
-            if (characterPosition.y < -8f)
-            {
-                character.transform.localPosition = new Vector3(characterPosition.x, -8f, characterPosition.z);
-            }
-            else if (characterPosition.y > 8f)
-            {
-                character.transform.localPosition = new Vector3(characterPosition.x, 8f, characterPosition.z);
-            }
-            else
-            {
-                character.transform.localPosition = new Vector3(characterPosition.x, characterPosition.y + scrollPosition * 0.0001f, characterPosition.z);
-            }
-            
+            scrollRect.velocity = Vector2.zero;
+        }
+
+        private IEnumerator MoveUp()
+        {
+            if (_currentLaneIndex <= 0) yield break;
+            _isMoving = true;
+            _currentLaneIndex--;
+            scrollRect.velocity = Vector2.zero;
+            yield return new WaitForSeconds(moveCooldown);
+            _isMoving = false;
+        }
+
+        private IEnumerator MoveDown()
+        {
+            if (_currentLaneIndex >= lanesY.Length - 1) yield break;
+            _isMoving = true;
+            _currentLaneIndex++;
+            scrollRect.velocity = Vector2.zero;
+            yield return new WaitForSeconds(moveCooldown);
+            _isMoving = false;
         }
     }
-    
+
 
 }
