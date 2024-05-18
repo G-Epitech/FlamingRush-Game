@@ -1135,7 +1135,7 @@ GameObject:
   - component: {fileID: 152565189}
   - component: {fileID: 152565188}
   m_Layer: 0
-  m_Name: SocketManager
+  m_Name: GameManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
