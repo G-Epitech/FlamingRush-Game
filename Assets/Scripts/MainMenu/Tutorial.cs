@@ -36,6 +36,7 @@ public class Tutorial : MonoBehaviour
                 gameObject = GameObject.FindGameObjectWithTag("menuBackdrop");
                 gameObject.SetActive(false);
                 _imageIndex = 0;
+                return;
             }
             _image.sprite = _loadedImages[_imageIndex];
         }
