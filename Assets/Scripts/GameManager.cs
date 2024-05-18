@@ -38,6 +38,12 @@ public class GameManager : MonoBehaviour
 
         Instance = this;
         DontDestroyOnLoad(gameObject);
+        string cache = CacheSystem.loadTest();
+        if (cache != null)
+        {
+            Debug.Log(cache);
+        }
+        CacheSystem.saveTest();
     }
 
     private struct NewClient
