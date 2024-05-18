@@ -1,8 +1,8 @@
 using System;
-using System.Collections.Generic;
 using SocketIOClient;
 using SocketIOClient.Newtonsoft.Json;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class SocketManager : MonoBehaviour
 {
@@ -10,11 +10,6 @@ public class SocketManager : MonoBehaviour
 
     private SocketIOUnity _client;
     private string _id;
-
-    struct NewClient
-    {
-        public string id;
-    }
 
     private async void Start()
     {
@@ -27,9 +22,9 @@ public class SocketManager : MonoBehaviour
         });
         _client.JsonSerializer = new NewtonsoftJsonSerializer();
         await _client.ConnectAsync();
-        
+
         this.RegisterBaseEvents();
-        
+
         _client.Emit("user/new");
     }
 
@@ -45,11 +40,34 @@ public class SocketManager : MonoBehaviour
         DontDestroyOnLoad(gameObject);
     }
 
+    private struct NewClient
+    {
+        public string id;
+    }
+
     private void RegisterBaseEvents()
     {
-        _client.On("user/created", (response) =>
+        _client.On("user/created", (response) => { this._id = response.GetValue<NewClient>(0).id; });
+        _client.OnUnityThread("room/updated", (response) =>
         {
-            this._id = response.GetValue<NewClient>(0).id;
+            SceneManager.LoadScene("Lobby");
         });
+    }
+
+    private struct CreateGame
+    {
+        public string name;
+        public int profilePicture;
+    }
+
+    public void createNewGame()
+    {
+        var data = new CreateGame()
+        {
+            name = "Dragos",
+            profilePicture = 2,
+        };
+        
+        _client.Emit("room/create", data);
     }
 }
