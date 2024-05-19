@@ -96,7 +96,11 @@ public class GameManager : MonoBehaviour
                 playerController.SetPlayer(i + 1, user.name, user.profilePicture, isMe, user.ready);
 
                 if (isMe)
+                {
                     me = user;
+                    this.data.position = i;
+                }
+
                 if (!user.ready)
                     allReady = false;
             }
@@ -189,5 +193,10 @@ public class GameManager : MonoBehaviour
     public void startRound()
     {
         _client.Emit("room/start-round");
+    }
+
+    public SocketIOUnity GetSocketClient()
+    {
+        return _client;
     }
 }
