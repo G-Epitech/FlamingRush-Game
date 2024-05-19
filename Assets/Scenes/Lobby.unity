@@ -878,7 +878,7 @@ MonoBehaviour:
   profilesPicturesPath: Assets/Assets/UI/Lobby/Profile Pictures/
   youSprite: {fileID: 21300000, guid: 5a0dcb28a9ad24faf9d8dc088e94b39b, type: 3}
   noSprite: {fileID: 0}
-  noPlayerTitleSprite: {fileID: 21300000, guid: 53552292601314111843449d6ab53dca, type: 3}
+  noPlayerTitleSprite: {fileID: 21300000, guid: d69541ee029264948becfa88dcaed1fb, type: 3}
   playerTitleSprite: {fileID: 21300000, guid: 53552292601314111843449d6ab53dca, type: 3}
   playerReadySprite: {fileID: 21300000, guid: 5ece2e05124434b8b92befb0fae77ee1, type: 3}
   playerNotReadySprite: {fileID: 21300000, guid: 53552292601314111843449d6ab53dca, type: 3}
@@ -1104,7 +1104,7 @@ MonoBehaviour:
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
   m_ReferenceResolution: {x: 1920, y: 1080}
-  m_ScreenMatchMode: 0
+  m_ScreenMatchMode: 1
   m_MatchWidthOrHeight: 0
   m_PhysicalUnit: 3
   m_FallbackScreenDPI: 96
