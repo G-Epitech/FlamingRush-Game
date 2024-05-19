@@ -9,6 +9,7 @@ namespace Lobby
 {
     public class PlayerController : MonoBehaviour
     {
+        [SerializeField] private string profilesPicturesPath;
         [SerializeField] private Sprite youSprite;
         [SerializeField] private Sprite noSprite;
         [SerializeField] private Sprite noPlayerTitleSprite;
@@ -27,11 +28,17 @@ namespace Lobby
         [SerializeField] private Image player2YouSpriteRenderer;
         [SerializeField] private Image player3YouSpriteRenderer;
         [SerializeField] private Image player4YouSpriteRenderer;
+        [SerializeField] private Image player1ProfileRenderer;
+        [SerializeField] private Image player2ProfileRenderer;
+        [SerializeField] private Image player3ProfileRenderer;
+        [SerializeField] private Image player4ProfileRenderer;
         [SerializeField] private TextMeshProUGUI codeText;
 
-        public void SetPlayer(int playerNumber, string playerName, bool isYou, bool isReady)
+        public void SetPlayer(int playerNumber, string playerName, int playerProfileIdx, bool isYou, bool isReady)
         {
+            List<Sprite> images = ImageLoader.loadImagesFromPath(profilesPicturesPath);
             Image spriteRenderer = null;
+            Image profileRenderer = null;
             TextMeshProUGUI text = null;
             Image youSpriteRenderer = null;
 
@@ -41,33 +48,34 @@ namespace Lobby
                     spriteRenderer = player1SpriteRenderer;
                     text = player1Text;
                     youSpriteRenderer = player1YouSpriteRenderer;
+                    profileRenderer = player1ProfileRenderer;
                     break;
                 case 2:
                     spriteRenderer = player2SpriteRenderer;
                     text = player2Text;
                     youSpriteRenderer = player2YouSpriteRenderer;
+                    profileRenderer = player2ProfileRenderer;
                     break;
                 case 3:
                     spriteRenderer = player3SpriteRenderer;
                     text = player3Text;
                     youSpriteRenderer = player3YouSpriteRenderer;
+                    profileRenderer = player3ProfileRenderer;
                     break;
                 case 4:
                     spriteRenderer = player4SpriteRenderer;
                     text = player4Text;
                     youSpriteRenderer = player4YouSpriteRenderer;
+                    profileRenderer = player4ProfileRenderer;
                     break;
             }
 
+            profileRenderer.gameObject.SetActive(true);
+            profileRenderer.sprite = images[playerProfileIdx];
+
             if (isYou)
             {
-                youSpriteRenderer.sprite = youSprite;
-                youSpriteRenderer.color = Color.white;
-            }
-            else
-            {
-                youSpriteRenderer.sprite = noSprite;
-                youSpriteRenderer.color = Color.clear;
+                youSpriteRenderer.gameObject.SetActive(true);
             }
 
             if (playerName == "")
@@ -105,11 +113,21 @@ namespace Lobby
             player2SpriteRenderer.sprite = noPlayerTitleSprite;
             player3SpriteRenderer.sprite = noPlayerTitleSprite;
             player4SpriteRenderer.sprite = noPlayerTitleSprite;
+
+            player1ProfileRenderer.gameObject.SetActive(false);
+            player2ProfileRenderer.gameObject.SetActive(false);
+            player3ProfileRenderer.gameObject.SetActive(false);
+            player4ProfileRenderer.gameObject.SetActive(false);
+            
+            player1YouSpriteRenderer.gameObject.SetActive(false);
+            player2YouSpriteRenderer.gameObject.SetActive(false);
+            player3YouSpriteRenderer.gameObject.SetActive(false);
+            player4YouSpriteRenderer.gameObject.SetActive(false);
         }
 
         public void Start()
         {
-            this.Init();
+            Init();
 
             var gameManagerObject = GameObject.FindWithTag("GameManager");
             if (gameManagerObject)

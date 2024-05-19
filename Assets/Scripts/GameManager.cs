@@ -85,8 +85,9 @@ public class GameManager : MonoBehaviour
             {
                 var user = room.users[i];
                 bool isMe = user.id == this._id;
-                playerController.SetPlayer(i + 1, user.name, isMe, user.ready);
+                playerController.SetPlayer(i + 1, user.name, user.profilePicture, isMe, user.ready);
             }
+
             playerController.SetRoomCode(room.id);
         });
     }
@@ -118,7 +119,7 @@ public class GameManager : MonoBehaviour
     public void joinGame(GameObject inputObject)
     {
         TextMeshProUGUI text = inputObject.GetComponent<TextMeshProUGUI>();
-        
+
         var data = new JoinGame()
         {
             code = text.text.Substring(0, 6),
