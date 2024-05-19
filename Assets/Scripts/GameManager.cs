@@ -5,6 +5,7 @@ using SocketIOClient.Newtonsoft.Json;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using Utils;
 
 public class GameManager : MonoBehaviour
 {
@@ -66,6 +67,11 @@ public class GameManager : MonoBehaviour
         public RoomUser[] users;
     }
 
+    private struct StartGame
+    {
+        public string type;
+    }
+
     private void RegisterBaseEvents()
     {
         _client.On("user/created", (response) => { this._id = response.GetValue<NewClient>(0).id; });
@@ -118,6 +124,17 @@ public class GameManager : MonoBehaviour
                     startController.ChangeToWaiting();
                 else
                     startController.ChangeToReady();
+            }
+        });
+        
+        _client.OnUnityThread("room/start-round", (response) =>
+        {
+            var data = response.GetValue<StartGame>();
+            if (data.type == "canoe")
+            {
+                var fade = GameObject.FindObjectOfType<Fade>(true);
+                
+                fade.FadeIn("Canoe");
             }
         });
     }

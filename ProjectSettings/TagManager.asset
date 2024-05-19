@@ -10,6 +10,7 @@ TagManager:
   - GameManager
   - JoinCodeInput
   - StartController
+  - Fade
   layers:
   - Default
   - TransparentFX
