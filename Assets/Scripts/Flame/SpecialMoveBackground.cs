@@ -11,7 +11,7 @@ public class SpecialMoveBackground : MonoBehaviour
 
     [SerializeField] private Texture[] _textures;
 
-    public void SetBackground(uint lifes)
+    public void SetBackground(int lifes)
     {
         _rawImage.texture = _textures[0];
         if (lifes == 2)

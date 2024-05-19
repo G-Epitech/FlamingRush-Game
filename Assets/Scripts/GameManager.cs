@@ -173,8 +173,9 @@ public class GameManager : MonoBehaviour
         client.OnUnityThread("room/end-round", (response) =>
         {
             var data = response.GetValue<EndGame>();
-            this.gameData.lifes = (uint) data.lives;
-            this.gameData.streak = (uint) data.round;
+            this.gameData.lifes = data.lives;
+            this.gameData.streak = data.round;
+            Debug.Log("Receive JSON: " + response);
             var fade = GameObject.FindObjectOfType<Fade>(true);
             
             fade.FadeIn("FlameScore");

@@ -4,8 +4,8 @@ public class GameData
 {
     
     public bool start { get; set; }
-    public uint lifes { get; set; }
-    public uint streak { get; set; }
+    public int lifes { get; set; }
+    public int streak { get; set; }
 
     public GameData()
     {

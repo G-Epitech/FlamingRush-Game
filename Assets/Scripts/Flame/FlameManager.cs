@@ -21,8 +21,9 @@ public class FlameManager : MonoBehaviour
     void Start()
     {
         var gameManager = GameObject.FindObjectOfType<GameManager>();
-        uint lf = gameManager.gameData.lifes;
+        int lf = gameManager.gameData.lifes;
 
+        Debug.Log("Flame receive " + lf + " lives");
         if (lf == 3)
         {
             SetView(lf);
@@ -35,10 +36,11 @@ public class FlameManager : MonoBehaviour
         StartCoroutine(LifeAnimation(lf + 1, gameManager));
     }
 
-    private IEnumerator LifeAnimation(uint lf, GameManager gm)
+    private IEnumerator LifeAnimation(int lf, GameManager gm)
     {
         if (lf > 3)
         {
+            Debug.Log("No life changes");
             yield return new WaitForSeconds(4);
             gm.setReady();
             yield return null;
@@ -46,6 +48,7 @@ public class FlameManager : MonoBehaviour
 
         if (lf <= 3)
         {
+            Debug.Log("Transition life");
             Transform lifeTransform = lifes[lf - 1].transform;
             Vector3 originalScale = lifeTransform.localScale;
             Vector3 targetScale = new Vector3(124.6f, 124.6f, 124.6f);
@@ -85,7 +88,7 @@ public class FlameManager : MonoBehaviour
         }
     }
 
-    private void SetView(uint lf)
+    private void SetView(int lf)
     {
         var specialMoveBackground = GameObject.FindObjectOfType<SpecialMoveBackground>();
 
