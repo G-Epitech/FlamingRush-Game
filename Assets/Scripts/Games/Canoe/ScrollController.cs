@@ -6,13 +6,13 @@ namespace Games.Canoe
 {
     public class ScrollController : MonoBehaviour
     {
-        [SerializeField] public float[] lanesY = new float[] { 2.8f, 0.8f, -0.8f, -2.8f };
+        [SerializeField] public float[] lanesY = new float[] { 2.6f, 0.8f, -0.8f, -2.6f };
         private int _currentLaneIndex;
         [SerializeField] public float moveSpeed = 5f;
         [SerializeField] public ScrollRect scrollRect;
         [SerializeField] public GameObject player;
         [SerializeField] public float velocityThreshold = 100f;
-        [SerializeField] public float moveCooldown = 0.4f;
+        [SerializeField] public float moveCooldown = 0.1f;
         private bool _isMoving;
 
         private void Start()
