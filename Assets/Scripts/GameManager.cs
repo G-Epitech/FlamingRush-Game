@@ -35,7 +35,7 @@ public class GameManager : MonoBehaviour
         if (Instance == null)
             return;
         
-        var uri = new Uri("http://localhost:3000");
+        var uri = new Uri("http://10.29.126.76:3000");
         client = new SocketIOUnity(uri, new SocketIOOptions
         {
             Transport = SocketIOClient.Transport.TransportProtocol.WebSocket
@@ -101,6 +101,9 @@ public class GameManager : MonoBehaviour
         client.On("user/created", (response) => { this.id = response.GetValue<NewClient>(0).id; });
         client.OnUnityThread("room/updated", (response) =>
         {
+            if (this.gameData.start)
+                return;
+            
             if (SceneManager.GetActiveScene().name != "Lobby")
             {
                 SceneManager.LoadScene("Lobby");
@@ -157,6 +160,7 @@ public class GameManager : MonoBehaviour
         
         client.OnUnityThread("room/start-round", (response) =>
         {
+            gameData.start = true;
             var data = response.GetValue<StartGame>();
             if (data.type == "canoe")
             {
@@ -169,8 +173,9 @@ public class GameManager : MonoBehaviour
         client.OnUnityThread("room/end-round", (response) =>
         {
             var data = response.GetValue<EndGame>();
-            this.gameData.lifes = (uint) data.lives;
-            this.gameData.streak = (uint) data.round;
+            this.gameData.lifes = data.lives;
+            this.gameData.streak = data.round;
+            Debug.Log("Receive JSON: " + response);
             var fade = GameObject.FindObjectOfType<Fade>(true);
             
             fade.FadeIn("FlameScore");

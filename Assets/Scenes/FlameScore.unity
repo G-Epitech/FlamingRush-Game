@@ -5329,6 +5329,7 @@ MonoBehaviour:
   fire:
   - {fileID: 318040352}
   - {fileID: 1807137835}
+  fade: {fileID: 1718858800}
 --- !u!4 &812117689
 Transform:
   m_ObjectHideFlags: 0

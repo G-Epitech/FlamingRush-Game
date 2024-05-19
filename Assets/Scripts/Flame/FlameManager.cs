@@ -17,62 +17,77 @@ public class FlameManager : MonoBehaviour
     [SerializeField] private Sprite[] vignetteSprites;
     [SerializeField] private SpriteRenderer effect;
     [SerializeField] private ParticleSystem[] fire;
+    [SerializeField] private Fade fade;
 
     void Start()
     {
         var gameManager = GameObject.FindObjectOfType<GameManager>();
-        uint lf = gameManager.gameData.lifes;
+        int lf = gameManager.gameData.lifes;
 
+        Debug.Log("Flame receive " + lf + " lives");
         if (lf == 3)
         {
             SetView(lf);
-            return;
+        }
+        else
+        {
+            SetView(lf + 1);
         }
 
-        SetView(lf + 1);
         StartCoroutine(LifeAnimation(lf + 1, gameManager));
     }
 
-    private IEnumerator LifeAnimation(uint lf, GameManager gm)
+    private IEnumerator LifeAnimation(int lf, GameManager gm)
     {
-        Transform lifeTransform = lifes[lf - 1].transform;
-        Vector3 originalScale = lifeTransform.localScale;
-        Vector3 targetScale = new Vector3(124.6f, 124.6f, 124.6f);
-
-        float elapsedTime = 0f;
-        while (elapsedTime < 2)
+        if (lf > 3)
         {
-            lifeTransform.localScale = Vector3.Lerp(originalScale, targetScale, elapsedTime / 1);
-            elapsedTime += Time.deltaTime;
+            Debug.Log("No life changes");
+            yield return new WaitForSeconds(4);
+            gm.setReady();
             yield return null;
         }
 
-        lifeTransform.localScale = targetScale;
-        SetView(lf - 1);
-
-        // Animate scaling down
-        elapsedTime = 0f;
-        while (elapsedTime < 2)
+        if (lf <= 3)
         {
-            lifeTransform.localScale = Vector3.Lerp(targetScale, originalScale, elapsedTime / 1);
-            elapsedTime += Time.deltaTime;
-            yield return null;
-        }
+            Debug.Log("Transition life");
+            Transform lifeTransform = lifes[lf - 1].transform;
+            Vector3 originalScale = lifeTransform.localScale;
+            Vector3 targetScale = new Vector3(124.6f, 124.6f, 124.6f);
 
-        lifeTransform.localScale = originalScale;
+            float elapsedTime = 0f;
+            while (elapsedTime < 2)
+            {
+                lifeTransform.localScale = Vector3.Lerp(originalScale, targetScale, elapsedTime / 1);
+                elapsedTime += Time.deltaTime;
+                yield return null;
+            }
 
-        yield return new WaitForSeconds(2);
-        gm.setReady();
-        
-        // End of the game
-        if (lf - 1 <= 0)
-        {
-            var fade = GameObject.FindObjectOfType<Fade>();
-            fade.FadeIn("Score");
+            lifeTransform.localScale = targetScale;
+            SetView(lf - 1);
+
+            // Animate scaling down
+            elapsedTime = 0f;
+            while (elapsedTime < 2)
+            {
+                lifeTransform.localScale = Vector3.Lerp(targetScale, originalScale, elapsedTime / 1);
+                elapsedTime += Time.deltaTime;
+                yield return null;
+            }
+
+            lifeTransform.localScale = originalScale;
+
+            yield return new WaitForSeconds(2);
+            gm.setReady();
+
+            // End of the game
+            if (lf - 1 <= 0)
+            {
+                fade.FadeIn("Score");
+            }
         }
     }
 
-    private void SetView(uint lf)
+    private void SetView(int lf)
     {
         var specialMoveBackground = GameObject.FindObjectOfType<SpecialMoveBackground>();
 
@@ -90,7 +105,7 @@ public class FlameManager : MonoBehaviour
         {
             effect.gameObject.SetActive(false);
             lifes[2].sprite = lifesSprites[0];
-            
+
             foreach (var system in fire)
             {
                 var emmision = system.emission;
@@ -104,7 +119,7 @@ public class FlameManager : MonoBehaviour
             vignette.sprite = vignetteSprites[0];
             lifes[2].sprite = lifesSprites[0];
             lifes[1].sprite = lifesSprites[0];
-            
+
             foreach (var system in fire)
             {
                 var emmision = system.emission;

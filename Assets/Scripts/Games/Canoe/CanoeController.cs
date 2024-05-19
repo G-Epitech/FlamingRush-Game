@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -30,12 +31,16 @@ namespace Games.Canoe
         {
             var scrap = other.GetComponent<ScrapMove>();
             if (scrap == null) return;
-            
-            _canoeGameController.EmitCollision(scrap.uuid, scrap.type);
-            
-            Destroy(other.gameObject);
+
+            var players = _canoeGameController.State.players;
+            var me = players.FirstOrDefault(p => p.Key == _canoeGameController.gameManager.id);
+            if (me.Value.x == ID)
+                _canoeGameController.EmitCollision(scrap.uuid, scrap.type);
+        }
+
+        public void Kill()
+        {
             animator.enabled = false;
-            
             var img = gameObject.GetComponent<Image>();
             img.sprite = deadSprite;
         }

@@ -23,11 +23,11 @@ public class ImageLoader : MonoBehaviour
         return sprites;
     }
 
-    public static List<Sprite> loadProfilePictures()
+    private static List<Sprite> LoadRessourceImages(string path)
     {
         List<Sprite> sprites = new List<Sprite>();
 
-        Texture2D[] textures = Resources.LoadAll<Texture2D>("Profile Pictures");
+        Texture2D[] textures = Resources.LoadAll<Texture2D>(path);
 
         foreach (Texture2D texture in textures)
         {
@@ -35,6 +35,16 @@ public class ImageLoader : MonoBehaviour
             sprites.Add(sprite);
         }
         return sprites;
+    }
+
+    public static List<Sprite> loadProfilePictures()
+    {
+        return LoadRessourceImages("Profile Pictures");
+    }
+
+    public static List<Sprite> loadTutorials()
+    {
+        return LoadRessourceImages("Tutorials");
     }
 
     public static Sprite LoadImageFrom(string path)
