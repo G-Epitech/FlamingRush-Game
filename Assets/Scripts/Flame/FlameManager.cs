@@ -26,15 +26,24 @@ public class FlameManager : MonoBehaviour
         if (lf == 3)
         {
             SetView(lf);
-            return;
+        }
+        else
+        {
+            SetView(lf + 1);
         }
 
-        SetView(lf + 1);
         StartCoroutine(LifeAnimation(lf + 1, gameManager));
     }
 
     private IEnumerator LifeAnimation(uint lf, GameManager gm)
     {
+        if (lf > 3)
+        {
+            yield return new WaitForSeconds(2);
+            gm.setReady();
+            yield return null;
+        }
+        
         Transform lifeTransform = lifes[lf - 1].transform;
         Vector3 originalScale = lifeTransform.localScale;
         Vector3 targetScale = new Vector3(124.6f, 124.6f, 124.6f);
@@ -63,7 +72,7 @@ public class FlameManager : MonoBehaviour
 
         yield return new WaitForSeconds(2);
         gm.setReady();
-        
+
         // End of the game
         if (lf - 1 <= 0)
         {
@@ -90,7 +99,7 @@ public class FlameManager : MonoBehaviour
         {
             effect.gameObject.SetActive(false);
             lifes[2].sprite = lifesSprites[0];
-            
+
             foreach (var system in fire)
             {
                 var emmision = system.emission;
@@ -104,7 +113,7 @@ public class FlameManager : MonoBehaviour
             vignette.sprite = vignetteSprites[0];
             lifes[2].sprite = lifesSprites[0];
             lifes[1].sprite = lifesSprites[0];
-            
+
             foreach (var system in fire)
             {
                 var emmision = system.emission;
