@@ -64,6 +64,8 @@ public class FlameManager : MonoBehaviour
         // End of the game
         if (lf - 1 <= 0)
         {
+            yield return new WaitForSeconds(2);
+            
             var fade = GameObject.FindObjectOfType<Fade>();
             fade.FadeIn("Score");
         }
