@@ -1,7 +1,5 @@
 using System;
 using Lobby;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Serialization;
 using SocketIOClient;
 using SocketIOClient.Newtonsoft.Json;
 using TMPro;
@@ -11,8 +9,11 @@ using Utils;
 
 public class GameManager : MonoBehaviour
 {
+    [SerializeField] private GameObject _tutorialModal;
+    [SerializeField] private GameObject _menuBackdrop;
     public static GameManager Instance;
 
+    public bool cacheExists;
     public SocketIOUnity client { get; private set; }
     public string id { get; private set; }
     public PlayerData data;
@@ -21,6 +22,13 @@ public class GameManager : MonoBehaviour
     private async void Start()
     {
         this.data = CacheSystem.loadPlayerData();
+        cacheExists = true;
+        if (CacheSystem.cacheExists() == false)
+        {
+            cacheExists = false;
+            _tutorialModal.SetActive(true);
+            _menuBackdrop.SetActive(true);
+        }
         if (Instance == null)
             return;
         var uri = new Uri("http://localhost:3000");
@@ -35,7 +43,6 @@ public class GameManager : MonoBehaviour
         this.RegisterBaseEvents();
 
         client.Emit("user/new");
-        this.data = CacheSystem.loadPlayerData();
         data.id = id;
     }
 
