@@ -1136,7 +1136,7 @@ GameObject:
   - component: {fileID: 152565188}
   m_Layer: 0
   m_Name: GameManager
-  m_TagString: Untagged
+  m_TagString: GameManager
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4877,6 +4877,18 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
+      - m_Target: {fileID: 152565188}
+        m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
+        m_MethodName: joinGame
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 1891990519}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
       - m_Target: {fileID: 1590054075}
         m_TargetAssemblyTypeName: MainButtonClick, Assembly-CSharp
         m_MethodName: closeModal
@@ -6116,7 +6128,7 @@ GameObject:
   - component: {fileID: 1891990521}
   m_Layer: 5
   m_Name: Text
-  m_TagString: Untagged
+  m_TagString: JoinCodeInput
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

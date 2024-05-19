@@ -7,6 +7,8 @@ TagManager:
   - tutorialModal
   - menuBackdrop
   - PlayersController
+  - GameManager
+  - JoinCodeInput
   layers:
   - Default
   - TransparentFX

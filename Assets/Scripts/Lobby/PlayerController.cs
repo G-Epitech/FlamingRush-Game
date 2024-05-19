@@ -10,7 +10,8 @@ namespace Lobby
     public class PlayerController : MonoBehaviour
     {
         [SerializeField] private Sprite youSprite;
-        [SerializeField] private Sprite noPlayerSprite;
+        [SerializeField] private Sprite noSprite;
+        [SerializeField] private Sprite noPlayerTitleSprite;
         [SerializeField] private Sprite playerTitleSprite;
         [SerializeField] private Sprite playerReadySprite;
         [SerializeField] private Sprite playerNotReadySprite;
@@ -26,6 +27,7 @@ namespace Lobby
         [SerializeField] private Image player2YouSpriteRenderer;
         [SerializeField] private Image player3YouSpriteRenderer;
         [SerializeField] private Image player4YouSpriteRenderer;
+        [SerializeField] private TextMeshProUGUI codeText;
 
         public void SetPlayer(int playerNumber, string playerName, bool isYou, bool isReady)
         {
@@ -64,13 +66,13 @@ namespace Lobby
             }
             else
             {
-                youSpriteRenderer.sprite = noPlayerSprite;
+                youSpriteRenderer.sprite = noSprite;
                 youSpriteRenderer.color = Color.clear;
             }
 
             if (playerName == "")
             {
-                spriteRenderer.sprite = noPlayerSprite;
+                spriteRenderer.sprite = noSprite;
                 spriteRenderer.color = Color.clear;
                 text.text = "";
             }
@@ -81,7 +83,7 @@ namespace Lobby
                 text.text = playerName;
             }
 
-            if (isReady)
+            if (isReady && playerNumber != 1)
             {
                 spriteRenderer.sprite = playerReadySprite;
                 spriteRenderer.color = Color.white;
@@ -93,12 +95,29 @@ namespace Lobby
             }
         }
 
+        public void SetRoomCode(string code)
+        {
+            codeText.text = code;
+        }
+
+        private void Init()
+        {
+            player2SpriteRenderer.sprite = noPlayerTitleSprite;
+            player3SpriteRenderer.sprite = noPlayerTitleSprite;
+            player4SpriteRenderer.sprite = noPlayerTitleSprite;
+        }
+
         public void Start()
         {
+            this.Init();
+
             var gameManagerObject = GameObject.FindWithTag("GameManager");
-            GameManager gameManager = gameManagerObject.GetComponent<GameManager>();
-            
-            gameManager.askRoomStatus();
+            if (gameManagerObject)
+            {
+                GameManager gameManager = gameManagerObject.GetComponent<GameManager>();
+
+                gameManager.askRoomStatus();
+            }
         }
     }
 }

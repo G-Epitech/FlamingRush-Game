@@ -2,7 +2,7 @@ using System;
 using Lobby;
 using SocketIOClient;
 using SocketIOClient.Newtonsoft.Json;
-using Unity.VisualScripting;
+using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -87,6 +87,7 @@ public class GameManager : MonoBehaviour
                 bool isMe = user.id == this._id;
                 playerController.SetPlayer(i + 1, user.name, isMe, user.ready);
             }
+            playerController.SetRoomCode(room.id);
         });
     }
 
@@ -105,6 +106,26 @@ public class GameManager : MonoBehaviour
         };
 
         _client.Emit("room/create", data);
+    }
+
+    private struct JoinGame
+    {
+        public string code;
+        public string name;
+        public int profilePicture;
+    }
+
+    public void joinGame(GameObject inputObject)
+    {
+        TextMeshProUGUI text = inputObject.GetComponent<TextMeshProUGUI>();
+        
+        var data = new JoinGame()
+        {
+            code = text.text.Substring(0, 6),
+            name = "Dragos",
+            profilePicture = 2,
+        };
+        _client.Emit("room/join", data);
     }
 
     public void askRoomStatus()
