@@ -10116,24 +10116,29 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 3e3ac1d267c5e43e49bcfbf5efe2d105, type: 3}
   - {fileID: 21300000, guid: 5e4cc49eb5c1043eaadae41aaa89d57e, type: 3}
   lifes:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 2003961126}
+  - {fileID: 997110852}
+  - {fileID: 1245212169}
   lifesSprites:
   - {fileID: 21300000, guid: 32d6b1c07f61f437b87f7ad47f161b57, type: 3}
   - {fileID: 21300000, guid: 721ebd19a74cf4fff87b0ada81a57767, type: 3}
-  streak: {fileID: 0}
+  streak: {fileID: 1361297021}
   streakSprites:
   - {fileID: 21300000, guid: 968f48e7093f34c63bd3465835900c61, type: 3}
   - {fileID: 21300000, guid: 9af68a32b06d04d57a02dc9b8b11b94e, type: 3}
   - {fileID: 21300000, guid: ff3feffec771348058e87cfb17ffeb92, type: 3}
   - {fileID: 21300000, guid: c832ead966ff249ebb2e3c7697d58f9f, type: 3}
-  vignette: {fileID: 0}
+  vignette: {fileID: 665034135}
   vignetteSprites:
   - {fileID: 21300000, guid: 4137f97caef764745b82bc3f75814fab, type: 3}
   - {fileID: 21300000, guid: 6e1aee51ae18f456b9da1340abf0d6ed, type: 3}
-  effect: {fileID: 0}
-  fire: {fileID: 318040352}
+  effect: {fileID: 841985099}
+  fire:
+  - {fileID: 318040352}
+  - {fileID: 1807137835}
+  floor:
+  - {fileID: 476194180}
+  - {fileID: 1369918875}
 --- !u!4 &812117689
 Transform:
   m_ObjectHideFlags: 0
