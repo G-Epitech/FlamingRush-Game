@@ -19,12 +19,13 @@ public class ModalAnimation : MonoBehaviour
     public void CloseDialog()
     {
         CanvasGroup background = backdrop.GetComponent<CanvasGroup>();
-        background.LeanAlpha(0f, 1f);
+        background.LeanAlpha(0f, 0.5f);
         box.LeanMoveLocalY(-Screen.height, 0.5f).setEaseInExpo().setOnComplete(onComplete);
     }
 
     void onComplete()
     {
+        gameObject.SetActive(false);
         backdrop.SetActive(false);
     }
 }
