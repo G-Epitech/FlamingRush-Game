@@ -78,4 +78,9 @@ public class RelayGameController : MonoBehaviour
     {
         gameManager?.client.Emit("games/relay/pass");
     }
+    
+    public void EmitTap()
+    {
+        gameManager?.client.Emit("games/relay/tap");
+    }
 }
