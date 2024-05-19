@@ -39,45 +39,49 @@ public class FlameManager : MonoBehaviour
     {
         if (lf > 3)
         {
-            yield return new WaitForSeconds(2);
+            yield return new WaitForSeconds(4);
             gm.setReady();
             yield return null;
         }
-        
-        Transform lifeTransform = lifes[lf - 1].transform;
-        Vector3 originalScale = lifeTransform.localScale;
-        Vector3 targetScale = new Vector3(124.6f, 124.6f, 124.6f);
 
-        float elapsedTime = 0f;
-        while (elapsedTime < 2)
+        if (lf <= 3)
         {
-            lifeTransform.localScale = Vector3.Lerp(originalScale, targetScale, elapsedTime / 1);
-            elapsedTime += Time.deltaTime;
-            yield return null;
-        }
+            Transform lifeTransform = lifes[lf - 1].transform;
+            Vector3 originalScale = lifeTransform.localScale;
+            Vector3 targetScale = new Vector3(124.6f, 124.6f, 124.6f);
 
-        lifeTransform.localScale = targetScale;
-        SetView(lf - 1);
+            float elapsedTime = 0f;
+            while (elapsedTime < 2)
+            {
+                lifeTransform.localScale = Vector3.Lerp(originalScale, targetScale, elapsedTime / 1);
+                elapsedTime += Time.deltaTime;
+                yield return null;
+            }
 
-        // Animate scaling down
-        elapsedTime = 0f;
-        while (elapsedTime < 2)
-        {
-            lifeTransform.localScale = Vector3.Lerp(targetScale, originalScale, elapsedTime / 1);
-            elapsedTime += Time.deltaTime;
-            yield return null;
-        }
+            lifeTransform.localScale = targetScale;
+            SetView(lf - 1);
 
-        lifeTransform.localScale = originalScale;
+            // Animate scaling down
+            elapsedTime = 0f;
+            while (elapsedTime < 2)
+            {
+                lifeTransform.localScale = Vector3.Lerp(targetScale, originalScale, elapsedTime / 1);
+                elapsedTime += Time.deltaTime;
+                yield return null;
+            }
 
-        yield return new WaitForSeconds(2);
-        gm.setReady();
+            lifeTransform.localScale = originalScale;
 
-        // End of the game
-        if (lf - 1 <= 0)
-        {
-            var fade = GameObject.FindObjectOfType<Fade>();
-            fade.FadeIn("Score");
+            yield return new WaitForSeconds(2);
+            gm.setReady();
+
+            // End of the game
+            if (lf - 1 <= 0)
+            {
+                var fade = GameObject.FindObjectOfType<Fade>();
+
+                fade.FadeIn("Score");
+            }
         }
     }
 
