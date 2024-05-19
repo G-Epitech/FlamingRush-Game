@@ -34,7 +34,7 @@ public static class CacheSystem
         else
         {
             result.name = "John Doe";
-            result.profilePicture = "Image";
+            result.profilePictureIdx = 0;
             result.id = "no_id";
             Debug.LogWarning("No cache found");
         }

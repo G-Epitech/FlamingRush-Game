@@ -8,11 +8,13 @@ public class PfpSelection : MonoBehaviour
     [SerializeField] private string _imagesPath;
     [SerializeField] private Image _image;
     private List<Sprite> _loadedImages;
-    private int _imageIndex = 0;
+    private int _imageIndex;
 
     void Start()
     {
         _loadedImages = ImageLoader.loadImagesFromPath(_imagesPath);
+        GameManager gm = GameManager.Instance;
+        _imageIndex = gm.data.profilePictureIdx;
         if (_loadedImages.Count > 0)
         {
             _image.sprite = _loadedImages[_imageIndex];
@@ -32,6 +34,8 @@ public class PfpSelection : MonoBehaviour
                 _imageIndex = 0;
             }
             _image.sprite = _loadedImages[_imageIndex];
+            GameManager gm = GameManager.Instance;
+            gm.data.profilePictureIdx = _imageIndex;
         }
         else
         {
@@ -49,6 +53,8 @@ public class PfpSelection : MonoBehaviour
                 _imageIndex = _loadedImages.Count - 1;
             }
             _image.sprite = _loadedImages[_imageIndex];
+            GameManager gm = GameManager.Instance;
+            gm.data.profilePictureIdx = _imageIndex;
         }
         else
         {
