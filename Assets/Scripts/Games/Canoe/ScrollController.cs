@@ -12,6 +12,7 @@ namespace Games.Canoe
         [SerializeField] public float moveSpeed = 5f;
         [SerializeField] public ScrollRect scrollRect;
         [SerializeField] public GameObject[] players;
+        [SerializeField] public GameObject[] buttons;
         [SerializeField] public float velocityThreshold = 100f;
         [SerializeField] public float moveCooldown = 0.1f;
         private int[] _playersIndex;
@@ -66,9 +67,14 @@ namespace Games.Canoe
                     var obj = players[position.x];
                     var me = obj.transform.GetChild(0);
                     me.gameObject.SetActive(true);
+                    if (position.y < 0)
+                    {
+                        foreach (var button in buttons)
+                            button.SetActive(false);
+                    }
                 }
                 
-                if (position.x < 0)
+                if (position.y < 0)
                     StartCoroutine(KillPlayer(position.x));
                 else
                     UpdatePlayerIndex(position.x, position.y);

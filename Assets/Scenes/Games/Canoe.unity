@@ -1502,6 +1502,9 @@ MonoBehaviour:
   - {fileID: 404314310}
   - {fileID: 1474277235}
   - {fileID: 312160584}
+  buttons:
+  - {fileID: 1722149463}
+  - {fileID: 1247402451}
   velocityThreshold: 100
   moveCooldown: 0.4
 --- !u!114 &1219566900
@@ -2510,7 +2513,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 04a1e30fa87004c798183da87680b327, type: 3}
   scrapSizes:
   - {x: 258, y: 316}
-  - {x: 1200, y: 826}
+  - {x: 826, y: 400}
   - {x: 472, y: 152}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
