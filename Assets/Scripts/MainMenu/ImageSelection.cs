@@ -16,7 +16,6 @@ public class PfpSelection : MonoBehaviour
         if (_loadedImages.Count > 0)
         {
             _image.sprite = _loadedImages[_imageIndex];
-            Debug.Log(_loadedImages.Count);
         } else
         {
             Debug.LogError("Path to profile pictures isn't valid");

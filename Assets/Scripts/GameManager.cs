@@ -26,6 +26,9 @@ public class GameManager : MonoBehaviour
         this.RegisterBaseEvents();
 
         _client.Emit("user/new");
+        Debug.Log("caca");
+        Player player = Player.Instance;
+        player.data.id = _id;
     }
 
     private void Awake()
