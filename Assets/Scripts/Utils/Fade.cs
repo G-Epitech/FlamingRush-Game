@@ -15,6 +15,8 @@ namespace Utils
             gameObject.SetActive(false);
             if (gameObject.scene.name == "Canoe")
                 this.FadeOut();
+            if (gameObject.scene.name == "FlameScore")
+                this.FadeOut();
         }
 
         private IEnumerator _fadeIn(string scene)
