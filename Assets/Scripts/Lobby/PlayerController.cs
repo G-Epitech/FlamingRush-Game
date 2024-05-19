@@ -49,7 +49,7 @@ namespace Lobby
 
         public void SetPlayer(int playerNumber, string playerName, int playerProfileIdx, bool isYou, bool isReady)
         {
-            List<Sprite> images = ImageLoader.loadImagesFromPath(profilesPicturesPath);
+            List<Sprite> images = ImageLoader.loadProfilePictures();
             Image spriteRenderer = null;
             Image profileRenderer = null;
             TextMeshProUGUI text = null;
