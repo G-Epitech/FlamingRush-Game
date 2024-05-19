@@ -67,10 +67,11 @@ namespace Games.Canoe
                     var obj = players[position.x];
                     var me = obj.transform.GetChild(0);
                     me.gameObject.SetActive(true);
-                    if (position.y < 0)
-                    {
+                    if (position.y < 0) {
                         foreach (var button in buttons)
                             button.SetActive(false);
+                    } else {
+                        _currentLaneIndex = position.y;
                     }
                 }
                 
@@ -84,23 +85,13 @@ namespace Games.Canoe
         private IEnumerator MoveUp()
         {
             if (_currentLaneIndex <= 0) yield break;
-            _isMoving = true;
-            _currentLaneIndex--;
-            scrollRect.velocity = Vector2.zero;
-            _canoeGameController.EmitPosition(_index, _currentLaneIndex);
-            yield return new WaitForSeconds(moveCooldown);
-            _isMoving = false;
+            _canoeGameController.EmitPosition(_index, _currentLaneIndex - 1);
         }
 
         private IEnumerator MoveDown()
         {
             if (_currentLaneIndex >= lanesY.Length - 1) yield break;
-            _isMoving = true;
-            _currentLaneIndex++;
-            scrollRect.velocity = Vector2.zero;
-            _canoeGameController.EmitPosition(_index, _currentLaneIndex);
-            yield return new WaitForSeconds(moveCooldown);
-            _isMoving = false;
+            _canoeGameController.EmitPosition(_index, _currentLaneIndex + 1);
         }
 
         public void UpdatePlayerIndex(int index, int waterline)
@@ -137,6 +128,7 @@ namespace Games.Canoe
         public IEnumerator KillPlayer(int index)
         {
             _playersDead[index] = true;
+            players[index].GetComponent<CanoeController>().Kill();
             yield return new WaitForSeconds(2.5f);
             players[index].SetActive(false);
             _animator.enabled = true;
