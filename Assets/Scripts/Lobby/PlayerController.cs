@@ -120,6 +120,7 @@ namespace Lobby
             {
                 spriteRenderer.sprite = playerReadySprite;
                 spriteRenderer.color = Color.white;
+                text.text = "";
             }
             else
             {
