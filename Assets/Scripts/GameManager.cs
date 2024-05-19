@@ -163,4 +163,14 @@ public class GameManager : MonoBehaviour
     {
         _client.Emit("room/status");
     }
+
+    public void setReady()
+    {
+        _client.Emit("room/user-ready");
+    }
+    
+    public void startRound()
+    {
+        _client.Emit("room/start-round");
+    }
 }

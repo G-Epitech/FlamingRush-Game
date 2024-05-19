@@ -569,8 +569,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1558152582}
-        m_TargetAssemblyTypeName: Button, Assembly-CSharp
-        m_MethodName: StartGame
+        m_TargetAssemblyTypeName: Lobby.StartController, Assembly-CSharp
+        m_MethodName: ReadyClick
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

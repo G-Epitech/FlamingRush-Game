@@ -13,9 +13,17 @@ namespace Lobby
         [SerializeField] private Sprite startSprite;
         [SerializeField] private Button button;
 
-        public void StartGame()
+        public void ReadyClick()
         {
-            SceneManager.LoadScene(sceneName);
+            var gameManagerObject = GameObject.FindWithTag("GameManager");
+            if (!gameManagerObject)
+                return;
+            GameManager gameManager = gameManagerObject.GetComponent<GameManager>();
+            
+            if (button.image.sprite == readyNoSprite)
+                gameManager.setReady();
+            if (button.image.sprite == startSprite)
+                gameManager.startRound();
         }
 
         public void ChangeToReady()
