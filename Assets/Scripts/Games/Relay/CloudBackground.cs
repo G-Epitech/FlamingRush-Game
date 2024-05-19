@@ -11,7 +11,7 @@ namespace Games.Relay
         
         private void Start()
         {
-            for (int i = 0; i < numberOfSegments; i++)
+            for (int i = -2; i < numberOfSegments; i++)
             {
                 var segment = new GameObject("Segment");
                 segment.transform.SetParent(transform);
