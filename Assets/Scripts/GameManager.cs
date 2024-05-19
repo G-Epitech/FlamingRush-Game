@@ -167,6 +167,11 @@ public class GameManager : MonoBehaviour
                 var fade = GameObject.FindObjectOfType<Fade>(true);
                 
                 fade.FadeIn("Canoe");
+            } else if (data.type == "relay")
+            {
+                var fade = GameObject.FindObjectOfType<Fade>(true);
+                
+                fade.FadeIn("Relay");
             }
         });
         

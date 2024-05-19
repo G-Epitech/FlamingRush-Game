@@ -10,14 +10,19 @@ namespace Games.Relay
         public bool isReady;
         public bool isFinished = false;
         public float speed = 50f;
-        public int progress = 0;
         [SerializeField] public StadeController stadeController;
+        private RelayGameController _relayGameController;
         
+        
+        private void Start()
+        {
+            _relayGameController = FindObjectOfType<RelayGameController>();
+        }
+
         private void Update()
         {
             if (isTurn && !isFinished)
             {
-                progress += 75;
                 stadeController.buildings.speed = speed / 8;
                 stadeController.track.speed = speed / 6;
                 stadeController.clouds.speed = speed / 25;
@@ -26,11 +31,6 @@ namespace Games.Relay
             if (!isTurn && isFinished)
             {
                 transform.position = Vector3.MoveTowards(transform.position, new Vector3(-1000, 0, 0), 3.5f * Time.deltaTime);
-            }
-            
-            if (progress >= 1000)
-            {
-                isFinished = true;
             }
         }
         
@@ -75,18 +75,20 @@ namespace Games.Relay
             }
             
             var next = other.gameObject.GetComponent<RelayPlayerController>();
-            var main = FindObjectOfType<RelayGameController>();
             
-            if (next != null)
+            _relayGameController.EmitPass();
+            /*if (next != null)
             {
                 next.isTurn = true;
                 isTurn = false;
                 isFinished = true;
                 main.currentPlayerIndex += 1;
-                progress = 1000000;
                 StartCoroutine(SmoothMove(other.transform.GetComponent<RectTransform>(), new Vector2(-500, -260), 1f));
-            }
-            
+            }*/
+        }
+        
+        public void PreventMisplacement(){
+            StartCoroutine(SmoothMove(gameObject.transform.GetComponent<RectTransform>(), new Vector2(-500, -260), 1f));
         }
     }
 }
