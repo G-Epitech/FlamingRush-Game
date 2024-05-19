@@ -35,7 +35,7 @@ public class GameManager : MonoBehaviour
         if (Instance == null)
             return;
         
-        var uri = new Uri("http://localhost:3000");
+        var uri = new Uri("http://10.29.126.76:3000");
         client = new SocketIOUnity(uri, new SocketIOOptions
         {
             Transport = SocketIOClient.Transport.TransportProtocol.WebSocket
