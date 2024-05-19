@@ -101,8 +101,8 @@ public class GameManager : MonoBehaviour
     {
         var data = new CreateGame()
         {
-            name = "Dragos",
-            profilePicture = 2,
+            name = this.data.name,
+            profilePicture = this.data.profilePictureIdx,
         };
 
         _client.Emit("room/create", data);
@@ -122,8 +122,8 @@ public class GameManager : MonoBehaviour
         var data = new JoinGame()
         {
             code = text.text.Substring(0, 6),
-            name = "Dragos",
-            profilePicture = 2,
+            name = this.data.name,
+            profilePicture = this.data.profilePictureIdx,
         };
         _client.Emit("room/join", data);
     }
