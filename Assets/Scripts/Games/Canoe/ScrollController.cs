@@ -17,6 +17,8 @@ namespace Games.Canoe
         private bool _isMoving;
         private int _index;
         private bool[] _playersDead;
+        private CanoeGameController _canoeGameController;
+        private Animator _animator;
 
         private void Start()
         {
@@ -25,6 +27,8 @@ namespace Games.Canoe
             _index = -1;
             _playersIndex = new int[players.Length];
             _playersDead = new bool[players.Length];
+            _canoeGameController = FindObjectOfType<CanoeGameController>();
+            _animator = FindObjectOfType<Animator>();
 
             for (int i = 0; i < _playersIndex.Length; i++)
             {
@@ -34,18 +38,28 @@ namespace Games.Canoe
             {
                 _playersDead[i] = false;
             }
-
-            
-            _index = 3;
-            UpdatePlayerIndex(1, 0);
-            UpdatePlayerIndex(2, 1);
-            UpdatePlayerIndex(0, 3);
         }
 
         public void Update()
         {
+            Sync();
             Compute();
             Render();
+        }
+
+        private void Sync()
+        {
+            if (_canoeGameController.State == null) return;
+            _index = _canoeGameController.State.players[_canoeGameController.gameManager.id].x;
+            foreach (var player in _canoeGameController.State.players.Values)
+            {
+                if (_playersDead[player.x])
+                    continue;
+                if (player.y < 0)
+                    StartCoroutine(KillPlayer(player.x));
+                else
+                    UpdatePlayerIndex(player.x, player.y);
+            }
         }
 
         private void Compute()
@@ -80,6 +94,7 @@ namespace Games.Canoe
             _isMoving = true;
             _currentLaneIndex--;
             scrollRect.velocity = Vector2.zero;
+            _canoeGameController.EmitPosition(_index, _currentLaneIndex);
             yield return new WaitForSeconds(moveCooldown);
             _isMoving = false;
         }
@@ -90,6 +105,7 @@ namespace Games.Canoe
             _isMoving = true;
             _currentLaneIndex++;
             scrollRect.velocity = Vector2.zero;
+            _canoeGameController.EmitPosition(_index, _currentLaneIndex);
             yield return new WaitForSeconds(moveCooldown);
             _isMoving = false;
         }
@@ -125,14 +141,10 @@ namespace Games.Canoe
         
         public IEnumerator KillPlayer(int index)
         {
-            var animator = GameObject.FindObjectOfType<Animator>();
-            
             _playersDead[index] = true;
             yield return new WaitForSeconds(2.5f);
             players[index].SetActive(false);
-            animator.enabled = true;
+            _animator.enabled = true;
         }
     }
-
-
 }

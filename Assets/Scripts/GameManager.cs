@@ -1,5 +1,7 @@
 using System;
 using Lobby;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Serialization;
 using SocketIOClient;
 using SocketIOClient.Newtonsoft.Json;
 using TMPro;
@@ -11,29 +13,30 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
 
-    private SocketIOUnity _client;
-    private string _id;
+    public SocketIOUnity client { get; private set; }
+    public string id { get; private set; }
     public PlayerData data;
     public GameData gameData;
-
+    
     private async void Start()
     {
         this.data = CacheSystem.loadPlayerData();
-        if (GameManager.Instance == null)
+        if (Instance == null)
             return;
         var uri = new Uri("http://localhost:3000");
-        _client = new SocketIOUnity(uri, new SocketIOOptions
+        client = new SocketIOUnity(uri, new SocketIOOptions
         {
             Transport = SocketIOClient.Transport.TransportProtocol.WebSocket
         });
-        _client.JsonSerializer = new NewtonsoftJsonSerializer();
-        await _client.ConnectAsync();
+        client.JsonSerializer = new NewtonsoftJsonSerializer();
+
+    await client.ConnectAsync();
 
         this.RegisterBaseEvents();
 
-        _client.Emit("user/new");
+        client.Emit("user/new");
         this.data = CacheSystem.loadPlayerData();
-        data.id = _id;
+        data.id = id;
     }
 
     private void Awake()
@@ -75,8 +78,8 @@ public class GameManager : MonoBehaviour
 
     private void RegisterBaseEvents()
     {
-        _client.On("user/created", (response) => { this._id = response.GetValue<NewClient>(0).id; });
-        _client.OnUnityThread("room/updated", (response) =>
+        client.On("user/created", (response) => { this.id = response.GetValue<NewClient>(0).id; });
+        client.OnUnityThread("room/updated", (response) =>
         {
             if (SceneManager.GetActiveScene().name != "Lobby")
             {
@@ -93,7 +96,7 @@ public class GameManager : MonoBehaviour
             for (int i = 0; i < room.users.Length; i++)
             {
                 var user = room.users[i];
-                bool isMe = user.id == this._id;
+                bool isMe = user.id == this.id;
                 playerController.SetPlayer(i + 1, user.name, user.profilePicture, isMe, user.ready);
 
                 if (isMe)
@@ -132,7 +135,7 @@ public class GameManager : MonoBehaviour
             }
         });
         
-        _client.OnUnityThread("room/start-round", (response) =>
+        client.OnUnityThread("room/start-round", (response) =>
         {
             var data = response.GetValue<StartGame>();
             if (data.type == "canoe")
@@ -158,7 +161,7 @@ public class GameManager : MonoBehaviour
             profilePicture = this.data.profilePictureIdx,
         };
 
-        _client.Emit("room/create", data);
+        client.Emit("room/create", data);
     }
 
     private struct JoinGame
@@ -178,26 +181,21 @@ public class GameManager : MonoBehaviour
             name = this.data.name,
             profilePicture = this.data.profilePictureIdx,
         };
-        _client.Emit("room/join", data);
+        client.Emit("room/join", data);
     }
 
     public void askRoomStatus()
     {
-        _client.Emit("room/status");
+        client.Emit("room/status");
     }
 
     public void setReady()
     {
-        _client.Emit("room/user-ready");
+        client.Emit("room/user-ready");
     }
     
     public void startRound()
     {
-        _client.Emit("room/start-round");
-    }
-
-    public SocketIOUnity GetSocketClient()
-    {
-        return _client;
+        client.Emit("room/start-round");
     }
 }

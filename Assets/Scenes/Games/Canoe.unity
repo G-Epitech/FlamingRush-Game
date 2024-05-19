@@ -122,6 +122,50 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &18129843
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 18129845}
+  - component: {fileID: 18129844}
+  m_Layer: 0
+  m_Name: CanoeGameController
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &18129844
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 18129843}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6ac077089c515c54799cfcf6a46ba9b4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &18129845
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 18129843}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.93137157, y: -0.07348005, z: -0.010774709}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &84688163
 GameObject:
   m_ObjectHideFlags: 0
@@ -1781,9 +1825,11 @@ MonoBehaviour:
   sprites:
   - {fileID: 21300000, guid: 2e8f86baae6414dafaf18d9451fe20e9, type: 3}
   - {fileID: 1636859596, guid: 48b8ab54a7b0d47928074696a50e1159, type: 3}
+  - {fileID: 21300000, guid: 04a1e30fa87004c798183da87680b327, type: 3}
   scrapSizes:
   - {x: 258, y: 316}
-  - {x: 826, y: 1200}
+  - {x: 1200, y: 826}
+  - {x: 472, y: 152}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
@@ -1793,3 +1839,4 @@ SceneRoots:
   - {fileID: 880791841}
   - {fileID: 1407870864}
   - {fileID: 2031952483}
+  - {fileID: 18129845}

@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 namespace Games.Canoe
@@ -6,6 +7,7 @@ namespace Games.Canoe
     {
         public float speed = 2f;
         public string uuid;
+        public string type;
 
         private void Update()
         {
@@ -18,7 +20,5 @@ namespace Games.Canoe
                 transform.Translate(Vector3.left * (speed * Time.deltaTime));    
             }
         }
-        
-
     }
 }
