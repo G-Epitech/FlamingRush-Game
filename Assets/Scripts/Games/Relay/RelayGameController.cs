@@ -43,6 +43,7 @@ public class RelayGameController : MonoBehaviour
 
     private void Update()
     {
+        if (State == null) return;
         Sync();
         if (State.transitionZone)
         {
