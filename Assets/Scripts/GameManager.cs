@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using Lobby;
 using SocketIOClient;
 using SocketIOClient.Newtonsoft.Json;
@@ -9,21 +10,25 @@ using Utils;
 
 public class GameManager : MonoBehaviour
 {
+    [SerializeField] private GameObject _tutorialModal;
+    [SerializeField] private GameObject _menuBackdrop;
     public static GameManager Instance;
 
+    public bool cacheExists;
     private SocketIOUnity _client;
     private string _id;
     public PlayerData data;
     public GameData gameData;
-    public bool cacheExists;
 
     private async void Start()
     {
-        cacheExists = true;
         this.data = CacheSystem.loadPlayerData();
-        if (data.id == "no_id")
+        cacheExists = true;
+        if (CacheSystem.cacheExists() == false)
         {
-            this.cacheExists = false;
+            cacheExists = false;
+            _tutorialModal.SetActive(true);
+            _menuBackdrop.SetActive(true);
         }
         if (GameManager.Instance == null)
             return;
@@ -51,29 +56,6 @@ public class GameManager : MonoBehaviour
 
         Instance = this;
         DontDestroyOnLoad(gameObject);
-    }
-
-    private void OnEnable()
-    {
-        SceneManager.sceneLoaded += OnSceneLoaded;
-    }
-
-    void OnSceneLoaded(Scene scene, LoadSceneMode mode)
-    {
-        Debug.Log(SceneManager.loadedSceneCount);
-        if (!cacheExists)
-            return;
-        GameObject gameObject = GameObject.FindGameObjectWithTag("tutorialModal");
-        if (gameObject != null)
-        {
-            Debug.Log("start tutorial");
-            gameObject.SetActive(true);
-        }
-        gameObject = GameObject.FindGameObjectWithTag("menuBackdrop");
-        if (gameObject != null)
-        {
-            gameObject.SetActive(true);
-        }
     }
 
     private struct NewClient

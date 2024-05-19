@@ -41,4 +41,9 @@ public static class CacheSystem
         }
         return result;
     }
+
+    public static bool cacheExists()
+    {
+        return File.Exists(getCachingPath());
+    }
 }
