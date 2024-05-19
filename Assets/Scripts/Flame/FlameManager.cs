@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 public class FlameManager : MonoBehaviour
 {
-    [SerializeField] private Image flame;
+    [SerializeField] private SpriteRenderer flame;
     [SerializeField] private Sprite[] flameSprites;
     [SerializeField] private Image[] lifes;
     [SerializeField] private Sprite[] lifesSprites;
@@ -16,11 +16,11 @@ public class FlameManager : MonoBehaviour
     [SerializeField] private Sprite[] vignetteSprites;
     [SerializeField] private Image effect;
     [SerializeField] private ParticleSystem fire;
-
+    
     void Start()
     {
         var gameManager = GameObject.FindObjectOfType<GameManager>();
-        uint lf = 2;
+        uint lf = 1;
 
         if (lf == 3)
         {
@@ -103,6 +103,14 @@ public class FlameManager : MonoBehaviour
         if (effect.gameObject.activeSelf)
         {
             effect.transform.Rotate(0f, 0f, -0.35f * (Time.deltaTime * 360));
+        }
+
+        if (vignette.sprite == vignetteSprites[0])
+        {
+            float alpha = Mathf.PingPong(Time.time * 2.5f, 1.0f - 0.1f) + 0.1f;
+            Color color = vignette.color;
+            color.a = alpha;
+            vignette.color = color;
         }
     }
 }
