@@ -47,4 +47,18 @@ public class ImageLoader : MonoBehaviour
         sprite = Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), new Vector2(0.5f, 0.5f));
         return sprite;
     }
+
+    public static Sprite LoadResourceImageFrom(string path)
+    {
+        Sprite sprite = null;
+
+        Texture2D texture = Resources.Load<Texture2D>(path);
+        if (texture == null)
+        {
+            Debug.Log($"Tried to load {path} from ressources but failed.");
+            return null;
+        }
+        sprite = Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), new Vector2(0.5f, 0.5f));
+        return sprite;
+    }
 }
