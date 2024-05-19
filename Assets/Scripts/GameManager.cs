@@ -23,6 +23,8 @@ public class GameManager : MonoBehaviour
     private async void Start()
     {
         this.data = CacheSystem.loadPlayerData();
+        this.gameData = new GameData();
+
         cacheExists = true;
         if (CacheSystem.cacheExists() == false)
         {
@@ -32,7 +34,8 @@ public class GameManager : MonoBehaviour
         }
         if (Instance == null)
             return;
-        var uri = new Uri("http://localhost:3000");
+        
+        var uri = new Uri("http://10.29.126.76:3000");
         client = new SocketIOUnity(uri, new SocketIOOptions
         {
             Transport = SocketIOClient.Transport.TransportProtocol.WebSocket
@@ -89,8 +92,8 @@ public class GameManager : MonoBehaviour
     private struct EndGame
     {
         public string type;
-        public uint round;
-        public uint lives;
+        public int round;
+        public int lives;
     }
 
     private void RegisterBaseEvents()
@@ -166,8 +169,8 @@ public class GameManager : MonoBehaviour
         client.OnUnityThread("room/end-round", (response) =>
         {
             var data = response.GetValue<EndGame>();
-            this.gameData.lifes = data.lives;
-            this.gameData.streak = data.round;
+            this.gameData.lifes = (uint) data.lives;
+            this.gameData.streak = (uint) data.round;
             var fade = GameObject.FindObjectOfType<Fade>(true);
             
             fade.FadeIn("FlameScore");

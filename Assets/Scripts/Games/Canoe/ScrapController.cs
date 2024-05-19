@@ -3,6 +3,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine.Serialization;
 
 namespace Games.Canoe
@@ -28,7 +29,6 @@ namespace Games.Canoe
             scrap.AddComponent<Image>().sprite = sprite;
             var mainCanvas = GameObject.Find("Scraps");
             scrap.transform.SetParent(mainCanvas.transform);
-            Debug.Log("Scrap generated at " + position);
             scrap.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
             var rect = scrap.GetComponent<RectTransform>();
             rect.anchoredPosition = position;
@@ -39,7 +39,7 @@ namespace Games.Canoe
             move.type = type;
             var collisions = scrap.AddComponent<BoxCollider2D>();
             collisions.isTrigger = true;
-            collisions.size = size;
+            collisions.size = new Vector2(size.x - 10, size.y - 10);
             var body = scrap.AddComponent<Rigidbody2D>();
             body.gravityScale = 0;
             body.constraints = RigidbodyConstraints2D.FreezeRotation | RigidbodyConstraints2D.FreezePositionY | RigidbodyConstraints2D.FreezePositionX;
@@ -54,6 +54,15 @@ namespace Games.Canoe
         private void Update()
         {
             if (_canoeGameController.State == null) return;
+            Queue<string> toRemove = new();
+
+            foreach (var (uuid, scrap) in _scraps) {
+                if (PreventDeadScrap(uuid, scrap))
+                    toRemove.Enqueue(uuid);
+            }
+            foreach (var uuid in toRemove)
+                _scraps.Remove(uuid);
+
             for (int i = 0; i < _canoeGameController.State.obstacles.Count; i++)
             {
                 var line = _canoeGameController.State.obstacles[i];
@@ -91,6 +100,19 @@ namespace Games.Canoe
             }
             if (sprite is not null && !_scraps.ContainsKey(id))
                 GenerateScrap(position, sprite, size, id, type);
+        }
+        
+        public bool PreventDeadScrap(string uuid, GameObject scrap)
+        {
+            if (_canoeGameController?.State.obstacles is null)
+                return false;
+            var stillExist = _canoeGameController.State.obstacles.Any(line => line.ContainsKey(uuid));
+
+            if (stillExist)
+                return false;
+            scrap.SetActive(false);
+            Destroy(scrap);
+            return true;
         }
 
         public void SetScrapSpeed(float speed)

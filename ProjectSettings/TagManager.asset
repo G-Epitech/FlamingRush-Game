@@ -7,11 +7,12 @@ TagManager:
   - tutorialModal
   - menuBackdrop
   - PlayersController
-  - customizeModal
   - GameManager
   - JoinCodeInput
   - StartController
   - Fade
+  - customizeModal
+  - Announcer
   layers:
   - Default
   - TransparentFX
