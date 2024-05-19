@@ -101,6 +101,9 @@ public class GameManager : MonoBehaviour
         client.On("user/created", (response) => { this.id = response.GetValue<NewClient>(0).id; });
         client.OnUnityThread("room/updated", (response) =>
         {
+            if (this.gameData.start)
+                return;
+            
             if (SceneManager.GetActiveScene().name != "Lobby")
             {
                 SceneManager.LoadScene("Lobby");
@@ -157,6 +160,7 @@ public class GameManager : MonoBehaviour
         
         client.OnUnityThread("room/start-round", (response) =>
         {
+            gameData.start = true;
             var data = response.GetValue<StartGame>();
             if (data.type == "canoe")
             {

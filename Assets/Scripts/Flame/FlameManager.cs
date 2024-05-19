@@ -39,7 +39,7 @@ public class FlameManager : MonoBehaviour
     {
         if (lf > 3)
         {
-            yield return new WaitForSeconds(2);
+            yield return new WaitForSeconds(4);
             gm.setReady();
             yield return null;
         }
@@ -77,6 +77,7 @@ public class FlameManager : MonoBehaviour
         if (lf - 1 <= 0)
         {
             var fade = GameObject.FindObjectOfType<Fade>();
+            
             fade.FadeIn("Score");
         }
     }
