@@ -40,10 +40,10 @@ namespace Games.Canoe
 
         public void Kill()
         {
+            Announcement.announce(Announcement.AnnouncementType.LOSE);
             animator.enabled = false;
             var img = gameObject.GetComponent<Image>();
             img.sprite = deadSprite;
-            Announcement.announce(Announcement.AnnouncementType.LOSE);
         }
     }
 }

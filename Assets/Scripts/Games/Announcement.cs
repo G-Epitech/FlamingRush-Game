@@ -31,8 +31,7 @@ public class Announcement : MonoBehaviour
 
     private static AudioSource _audioSource;
 
-
-    private void Start()
+    private void Awake()
     {
         _announcements = new Dictionary<AnnouncementType, AnnouncementRessource>();
         _audioSource = GetComponent<AudioSource>();
