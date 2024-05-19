@@ -209,6 +209,7 @@ GameObject:
   - component: {fileID: 312160587}
   - component: {fileID: 312160586}
   - component: {fileID: 312160588}
+  - component: {fileID: 312160589}
   m_Layer: 5
   m_Name: Canoe4
   m_TagString: Untagged
@@ -318,6 +319,21 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 160, y: 60}
   m_EdgeRadius: 0
+--- !u!114 &312160589
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 312160584}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 67a6a663d703b89479ebf5b86c93f6f2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animator: {fileID: 512737605}
+  deadSprite: {fileID: -1716904109, guid: b827a507ee5d349268d2b7b3b804faca, type: 3}
+  ID: 3
 --- !u!1 &404314310
 GameObject:
   m_ObjectHideFlags: 0
@@ -330,6 +346,7 @@ GameObject:
   - component: {fileID: 404314313}
   - component: {fileID: 404314312}
   - component: {fileID: 404314314}
+  - component: {fileID: 404314315}
   m_Layer: 5
   m_Name: Canoe2
   m_TagString: Untagged
@@ -439,6 +456,21 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 160, y: 60}
   m_EdgeRadius: 0
+--- !u!114 &404314315
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 404314310}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 67a6a663d703b89479ebf5b86c93f6f2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animator: {fileID: 512737605}
+  deadSprite: {fileID: -1705295778, guid: 8129a6104515143e7ab9673de21cb39a, type: 3}
+  ID: 1
 --- !u!1 &420830779
 GameObject:
   m_ObjectHideFlags: 0
@@ -606,6 +638,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animator: {fileID: 512737605}
+  deadSprite: {fileID: -1848588905, guid: 2d468460cb463454e94e3902d73a3357, type: 3}
+  ID: 0
 --- !u!50 &430521360
 Rigidbody2D:
   serializedVersion: 4
@@ -1114,7 +1148,11 @@ MonoBehaviour:
   - -2.8
   moveSpeed: 5
   scrollRect: {fileID: 1219566900}
-  player: {fileID: 430521354}
+  players:
+  - {fileID: 430521354}
+  - {fileID: 404314310}
+  - {fileID: 1474277235}
+  - {fileID: 312160584}
   velocityThreshold: 100
   moveCooldown: 0.4
 --- !u!114 &1219566900
@@ -1392,6 +1430,7 @@ GameObject:
   - component: {fileID: 1474277238}
   - component: {fileID: 1474277237}
   - component: {fileID: 1474277239}
+  - component: {fileID: 1474277240}
   m_Layer: 5
   m_Name: Canoe3
   m_TagString: Untagged
@@ -1501,6 +1540,21 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 160, y: 60}
   m_EdgeRadius: 0
+--- !u!114 &1474277240
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1474277235}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 67a6a663d703b89479ebf5b86c93f6f2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animator: {fileID: 512737605}
+  deadSprite: {fileID: 174359402, guid: bc1f6f78013624c069c7c836c6e0a35a, type: 3}
+  ID: 2
 --- !u!1 &1604672061
 GameObject:
   m_ObjectHideFlags: 0

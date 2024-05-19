@@ -1,11 +1,15 @@
 using System;
+using System.Collections;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace Games.Canoe
 {
     public class CanoeController : MonoBehaviour
     {
         [SerializeField] public Animator animator;
+        [SerializeField] public Sprite deadSprite;
+        [SerializeField] public int ID;
     
         /// <summary>
         /// This Function accelerates ALL canoes in the scene.
@@ -16,9 +20,23 @@ namespace Games.Canoe
             animator.speed = speed;
         }
 
-        public void OnCollisionEnter2D(Collision2D other)
+        public void OnTriggerEnter2D(Collider2D other)
         {
-            Debug.Log("Collision detected");
+            var scrollController = GameObject.FindObjectOfType<ScrollController>();
+            var oldSpeed = animator.speed;
+            
+            Destroy(other.gameObject);
+            Debug.Log("I'm DEAD !");
+            animator.enabled = false;
+            
+            var img = gameObject.GetComponent<Image>();
+            img.sprite = deadSprite;
+            StartCoroutine(scrollController.KillPlayer(ID));
+            Debug.Log("I'm really 5 DEAD !");
+            // StartCoroutine(Die());
+            Debug.Log("I'm really 4 DEAD !");
         }
+        
+
     }
 }

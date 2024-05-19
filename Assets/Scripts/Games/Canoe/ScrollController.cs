@@ -16,6 +16,7 @@ namespace Games.Canoe
         private int[] _playersIndex;
         private bool _isMoving;
         private int _index;
+        private bool[] _playersDead;
 
         private void Start()
         {
@@ -23,10 +24,15 @@ namespace Games.Canoe
             _isMoving = false;
             _index = -1;
             _playersIndex = new int[players.Length];
+            _playersDead = new bool[players.Length];
 
             for (int i = 0; i < _playersIndex.Length; i++)
             {
                 _playersIndex[i] = 0;
+            }
+            for (int i = 0; i < _playersDead.Length; i++)
+            {
+                _playersDead[i] = false;
             }
 
             
@@ -100,6 +106,8 @@ namespace Games.Canoe
         {
             for (int i = 0; i < players.Length; i++)
             {
+                if (_playersDead[i]) continue;
+                
                 var targetPosition = new Vector3(players[i].transform.position.x, lanesY[_playersIndex[i]], players[i].transform.position.z);
                 players[i].transform.position = Vector3.MoveTowards(players[i].transform.position, targetPosition, moveSpeed * Time.deltaTime);
             }
@@ -113,6 +121,16 @@ namespace Games.Canoe
         public int[] GetPlayersIndexes()
         {
             return _playersIndex;
+        }
+        
+        public IEnumerator KillPlayer(int index)
+        {
+            var animator = GameObject.FindObjectOfType<Animator>();
+            
+            _playersDead[index] = true;
+            yield return new WaitForSeconds(2.5f);
+            players[index].SetActive(false);
+            animator.enabled = true;
         }
     }
 

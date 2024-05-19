@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 
 namespace Games.Canoe
@@ -20,9 +19,6 @@ namespace Games.Canoe
             }
         }
         
-        private void OnTriggerEnter2D(Collider2D other)
-        {
-            Destroy(gameObject);
-        }
+
     }
 }
