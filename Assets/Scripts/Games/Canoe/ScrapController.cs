@@ -34,6 +34,7 @@ namespace Games.Canoe
             move.uuid = uuid;
             var collisions = scrap.AddComponent<BoxCollider2D>();
             collisions.isTrigger = true;
+            collisions.size = size;
             var body = scrap.AddComponent<Rigidbody2D>();
             body.gravityScale = 0;
             body.constraints = RigidbodyConstraints2D.FreezeRotation | RigidbodyConstraints2D.FreezePositionY | RigidbodyConstraints2D.FreezePositionX;
