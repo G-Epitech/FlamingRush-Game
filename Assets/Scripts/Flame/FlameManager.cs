@@ -16,12 +16,11 @@ public class FlameManager : MonoBehaviour
     [SerializeField] private Sprite[] vignetteSprites;
     [SerializeField] private SpriteRenderer effect;
     [SerializeField] private ParticleSystem[] fire;
-    [SerializeField] private ParticleSystem[] floor;
 
     void Start()
     {
         var gameManager = GameObject.FindObjectOfType<GameManager>();
-        uint lf = 1;
+        uint lf = gameManager.gameData.lifes;
 
         if (lf == 3)
         {
