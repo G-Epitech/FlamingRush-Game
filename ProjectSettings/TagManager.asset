@@ -8,6 +8,10 @@ TagManager:
   - menuBackdrop
   - PlayersController
   - customizeModal
+  - GameManager
+  - JoinCodeInput
+  - StartController
+  - Fade
   layers:
   - Default
   - TransparentFX
