@@ -13,7 +13,7 @@ public class Tutorial : MonoBehaviour
 
     void Start()
     {
-        _loadedImages = ImageLoader.loadImagesFromPath(_imagesPath);
+        _loadedImages = ImageLoader.loadProfilePictures();
         if (_loadedImages.Count > 0)
         {
             _image.sprite = _loadedImages[_imageIndex];

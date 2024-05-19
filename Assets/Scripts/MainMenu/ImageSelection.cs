@@ -12,7 +12,7 @@ public class PfpSelection : MonoBehaviour
 
     void Start()
     {
-        _loadedImages = ImageLoader.loadImagesFromPath(_imagesPath);
+        _loadedImages = ImageLoader.loadProfilePictures();
         GameManager gm = GameManager.Instance;
         _imageIndex = gm.data.profilePictureIdx;
         if (_loadedImages.Count > 0)

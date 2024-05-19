@@ -23,6 +23,20 @@ public class ImageLoader : MonoBehaviour
         return sprites;
     }
 
+    public static List<Sprite> loadProfilePictures()
+    {
+        List<Sprite> sprites = new List<Sprite>();
+
+        Texture2D[] textures = Resources.LoadAll<Texture2D>("Profile Pictures");
+
+        foreach (Texture2D texture in textures)
+        {
+            Sprite sprite = Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), new Vector2(0.5f, 0.5f));
+            sprites.Add(sprite);
+        }
+        return sprites;
+    }
+
     public static Sprite LoadImageFrom(string path)
     {
         Sprite sprite = null;
