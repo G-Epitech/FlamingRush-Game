@@ -43,6 +43,7 @@ namespace Games.Canoe
             animator.enabled = false;
             var img = gameObject.GetComponent<Image>();
             img.sprite = deadSprite;
+            Announcement.announce(Announcement.AnnouncementType.LOSE);
         }
     }
 }
