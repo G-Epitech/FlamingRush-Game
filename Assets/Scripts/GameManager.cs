@@ -80,15 +80,45 @@ public class GameManager : MonoBehaviour
             var playerControllerObject = GameObject.FindWithTag("PlayersController");
             PlayerController playerController = playerControllerObject.GetComponent<PlayerController>();
 
+            RoomUser me = new RoomUser();
+            bool allReady = true;
             var room = response.GetValue<Room>();
             for (int i = 0; i < room.users.Length; i++)
             {
                 var user = room.users[i];
                 bool isMe = user.id == this._id;
                 playerController.SetPlayer(i + 1, user.name, user.profilePicture, isMe, user.ready);
+
+                if (isMe)
+                    me = user;
+                if (!user.ready)
+                    allReady = false;
             }
 
+            if (room.users.Length < 4)
+                allReady = false;
+
             playerController.SetRoomCode(room.id);
+            
+            var startControllerObject = GameObject.FindWithTag("StartController");
+            StartController startController = startControllerObject.GetComponent<StartController>();
+
+            if (me.owner)
+            {
+                if (!allReady)
+                    startController.ChangeToWaiting();
+                else
+                    startController.ChangeToStart();
+            }
+            else
+            {
+                if (!me.ready)
+                    startController.ChangeToNotReady();
+                else if (allReady)
+                    startController.ChangeToWaiting();
+                else
+                    startController.ChangeToReady();
+            }
         });
     }
 

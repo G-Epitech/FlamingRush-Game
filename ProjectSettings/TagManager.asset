@@ -9,6 +9,7 @@ TagManager:
   - PlayersController
   - GameManager
   - JoinCodeInput
+  - StartController
   layers:
   - Default
   - TransparentFX

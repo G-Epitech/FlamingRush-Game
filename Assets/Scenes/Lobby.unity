@@ -886,6 +886,22 @@ MonoBehaviour:
   player2SpriteRenderer: {fileID: 255639169}
   player3SpriteRenderer: {fileID: 1958651642}
   player4SpriteRenderer: {fileID: 1501303109}
+  player1BackgroundRenderer: {fileID: 906211915}
+  player1BackgroundSprites:
+  - {fileID: 21300000, guid: a9a69aaf331df4f09b0dda4db05b55f8, type: 3}
+  - {fileID: 21300000, guid: ddbd6fe95312f47779bacf4ade46a84a, type: 3}
+  player2BackgroundRenderer: {fileID: 1904056805}
+  player2BackgroundSprites:
+  - {fileID: 21300000, guid: 35516eb826a2a4b6c87781da49b18389, type: 3}
+  - {fileID: 21300000, guid: c39e6c510e6ce45c8b480e142039e35a, type: 3}
+  player3BackgroundRenderer: {fileID: 83200995}
+  player3BackgroundSprites:
+  - {fileID: 21300000, guid: 6eeafa42ed3e24f6eaceaee4da55b8e7, type: 3}
+  - {fileID: 21300000, guid: a7c64056a84544df29db5fbe1381d96e, type: 3}
+  player4BackgroundRenderer: {fileID: 1590756844}
+  player4BackgroundSprites:
+  - {fileID: 21300000, guid: 7fab5464b1c204708bdc06c5caca403e, type: 3}
+  - {fileID: 21300000, guid: 08b86d430455a4ef0bc14693cfe0c9a5, type: 3}
   player1Text: {fileID: 56955390}
   player2Text: {fileID: 1632937575}
   player3Text: {fileID: 1922269860}
@@ -5270,7 +5286,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 14894.68, y: -7270.671}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 113.65}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1318098923
@@ -5373,7 +5389,7 @@ GameObject:
   - component: {fileID: 1558152582}
   m_Layer: 5
   m_Name: Controller
-  m_TagString: Untagged
+  m_TagString: StartController
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -5394,7 +5410,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 14993.081, y: -6437.4717}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 113.65}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1558152582
@@ -5410,7 +5426,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sceneName: Game
-  waitingSprite: {fileID: 0}
+  waitingSprite: {fileID: 21300000, guid: a688df73c01534e2dab90b6a5e619568, type: 3}
   readyYesSprite: {fileID: 21300000, guid: 04687b684a26c4cfcbf1fe9d651d8f3b, type: 3}
   readyNoSprite: {fileID: 21300000, guid: 11ef35b53dba2405eb05205940dd1785, type: 3}
   startSprite: {fileID: 21300000, guid: d4c031791bc164e919560a5ceba3ce34, type: 3}
