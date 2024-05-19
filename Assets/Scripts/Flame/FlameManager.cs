@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using Utils;
 
 public class FlameManager : MonoBehaviour
 {
@@ -59,6 +60,13 @@ public class FlameManager : MonoBehaviour
         }
 
         lifeTransform.localScale = originalScale;
+        
+        // End of the game
+        if (lf - 1 <= 0)
+        {
+            var fade = GameObject.FindObjectOfType<Fade>();
+            fade.FadeIn("Score");
+        }
     }
 
     private void SetView(uint lf)
