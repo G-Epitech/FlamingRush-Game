@@ -65,6 +65,7 @@ public class RelayGameController : MonoBehaviour
 
     private void Sync()
     {
+        if (State == null) return;
         if (currentPlayerIndex == State.currentRunner)
             return;
         players[currentPlayerIndex].isFinished = true;
