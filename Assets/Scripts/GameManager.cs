@@ -89,8 +89,8 @@ public class GameManager : MonoBehaviour
     private struct EndGame
     {
         public string type;
-        public uint round;
-        public uint lives;
+        public int round;
+        public int lives;
     }
 
     private void RegisterBaseEvents()
@@ -166,8 +166,8 @@ public class GameManager : MonoBehaviour
         client.OnUnityThread("room/end-round", (response) =>
         {
             var data = response.GetValue<EndGame>();
-            this.gameData.lifes = data.lives;
-            this.gameData.streak = data.round;
+            this.gameData.lifes = (uint) data.lives;
+            this.gameData.streak = (uint) data.round;
             var fade = GameObject.FindObjectOfType<Fade>(true);
             
             fade.FadeIn("FlameScore");
