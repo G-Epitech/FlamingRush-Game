@@ -14,6 +14,7 @@ public class GameManager : MonoBehaviour
     private SocketIOUnity _client;
     private string _id;
     public PlayerData data;
+    public GameData gameData;
 
     private async void Start()
     {
