@@ -22,4 +22,43 @@ public class ImageLoader : MonoBehaviour
         }
         return sprites;
     }
+
+    public static List<Sprite> loadProfilePictures()
+    {
+        List<Sprite> sprites = new List<Sprite>();
+
+        Texture2D[] textures = Resources.LoadAll<Texture2D>("Profile Pictures");
+
+        foreach (Texture2D texture in textures)
+        {
+            Sprite sprite = Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), new Vector2(0.5f, 0.5f));
+            sprites.Add(sprite);
+        }
+        return sprites;
+    }
+
+    public static Sprite LoadImageFrom(string path)
+    {
+        Sprite sprite = null;
+
+        byte[] fileData = File.ReadAllBytes(path);
+        Texture2D texture = new Texture2D(2, 2);
+        texture.LoadImage(fileData);
+        sprite = Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), new Vector2(0.5f, 0.5f));
+        return sprite;
+    }
+
+    public static Sprite LoadResourceImageFrom(string path)
+    {
+        Sprite sprite = null;
+
+        Texture2D texture = Resources.Load<Texture2D>(path);
+        if (texture == null)
+        {
+            Debug.Log($"Tried to load {path} from ressources but failed.");
+            return null;
+        }
+        sprite = Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), new Vector2(0.5f, 0.5f));
+        return sprite;
+    }
 }

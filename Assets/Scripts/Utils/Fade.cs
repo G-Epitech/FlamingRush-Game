@@ -17,6 +17,10 @@ namespace Utils
                 this.FadeOut();
             if (gameObject.scene.name == "FlameScore")
                 this.FadeOut();
+            if (gameObject.scene.name == "Score")
+                this.FadeOut();
+            if (gameObject.scene.name == "MainMenu")
+                this.FadeOut();
         }
 
         private IEnumerator _fadeIn(string scene)
