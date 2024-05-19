@@ -37,14 +37,14 @@ namespace Games.Canoe
         public State State;
         private void OnDestroy()
         {
-            gameManager.client.Off("games/update");
+            gameManager?.client.Off("games/update");
         }
 
         // Start is called before the first frame update
         void Start()
         {
             gameManager = FindObjectOfType<GameManager>();
-            gameManager.client.OnUnityThread("games/state", response => UpdateState(response.GetValue<State>()));
+            gameManager?.client.OnUnityThread("games/state", response => UpdateState(response.GetValue<State>()));
         }
         
         private void UpdateState(State state)
@@ -61,7 +61,7 @@ namespace Games.Canoe
                     y = y
                 }
             };
-            gameManager.client.Emit("games/canoe/move", position);
+            gameManager?.client.Emit("games/canoe/move", position);
             Debug.Log("Emitting position");
         }
         
@@ -72,7 +72,7 @@ namespace Games.Canoe
                 id = uuid,
                 obstacle = type
             };
-            gameManager.client.Emit("games/canoe/collide", collision);
+            gameManager?.client.Emit("games/canoe/collide", collision);
         }
     }
 }

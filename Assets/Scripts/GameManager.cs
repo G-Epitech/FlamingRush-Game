@@ -16,6 +16,7 @@ public class GameManager : MonoBehaviour
     public bool cacheExists;
     public SocketIOUnity client { get; private set; }
     public string id { get; private set; }
+    public int order { get; private set; }
     public PlayerData data;
     public GameData gameData;
     
@@ -31,19 +32,20 @@ public class GameManager : MonoBehaviour
         }
         if (Instance == null)
             return;
-        var uri = new Uri("http://192.168.0.147:3000");
+        var uri = new Uri("http://localhost:3000");
         client = new SocketIOUnity(uri, new SocketIOOptions
         {
             Transport = SocketIOClient.Transport.TransportProtocol.WebSocket
         });
         client.JsonSerializer = new NewtonsoftJsonSerializer();
 
-    await client.ConnectAsync();
+        await client.ConnectAsync();
 
         this.RegisterBaseEvents();
 
         client.Emit("user/new");
         data.id = id;
+        data.order = order;
     }
 
     private void Awake()
@@ -70,6 +72,7 @@ public class GameManager : MonoBehaviour
         public int profilePicture;
         public bool owner;
         public bool ready;
+        public int order;
     }
 
     private struct Room
@@ -81,6 +84,13 @@ public class GameManager : MonoBehaviour
     private struct StartGame
     {
         public string type;
+    }
+    
+    private struct EndGame
+    {
+        public string type;
+        public int round;
+        public int lives;
     }
 
     private void RegisterBaseEvents()
@@ -109,7 +119,7 @@ public class GameManager : MonoBehaviour
                 if (isMe)
                 {
                     me = user;
-                    this.data.position = i;
+                    this.data.order = i;
                 }
 
                 if (!user.ready)
@@ -151,6 +161,16 @@ public class GameManager : MonoBehaviour
                 
                 fade.FadeIn("Canoe");
             }
+        });
+        
+        client.OnUnityThread("room/end-round", (response) =>
+        {
+            var data = response.GetValue<EndGame>();
+            this.gameData.lifes = (uint) data.lives;
+            this.gameData.streak = (uint) data.round;
+            var fade = GameObject.FindObjectOfType<Fade>(true);
+            
+            fade.FadeIn("FlameScore");
         });
     }
 
@@ -200,7 +220,7 @@ public class GameManager : MonoBehaviour
     {
         client.Emit("room/user-ready");
     }
-    
+
     public void startRound()
     {
         client.Emit("room/start-round");

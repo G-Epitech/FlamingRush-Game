@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
@@ -11,6 +12,7 @@ namespace Games.Canoe
         [SerializeField] public float moveSpeed = 5f;
         [SerializeField] public ScrollRect scrollRect;
         [SerializeField] public GameObject[] players;
+        [SerializeField] public GameObject[] buttons;
         [SerializeField] public float velocityThreshold = 100f;
         [SerializeField] public float moveCooldown = 0.1f;
         private int[] _playersIndex;
@@ -20,6 +22,12 @@ namespace Games.Canoe
         private CanoeGameController _canoeGameController;
         private Animator _animator;
 
+        private void Awake()
+        {
+            _canoeGameController = FindObjectOfType<CanoeGameController>();
+            _animator = FindObjectOfType<Animator>();
+        }
+
         private void Start()
         {
             _currentLaneIndex = 0;
@@ -27,13 +35,12 @@ namespace Games.Canoe
             _index = -1;
             _playersIndex = new int[players.Length];
             _playersDead = new bool[players.Length];
-            _canoeGameController = FindObjectOfType<CanoeGameController>();
-            _animator = FindObjectOfType<Animator>();
 
             for (int i = 0; i < _playersIndex.Length; i++)
             {
                 _playersIndex[i] = 0;
             }
+
             for (int i = 0; i < _playersDead.Length; i++)
             {
                 _playersDead[i] = false;
@@ -50,14 +57,27 @@ namespace Games.Canoe
         {
             if (_canoeGameController.State == null) return;
             _index = _canoeGameController.State.players[_canoeGameController.gameManager.id].x;
-            foreach (var player in _canoeGameController.State.players.Values)
+            foreach (var (id, position) in _canoeGameController.State.players)
             {
-                if (_playersDead[player.x])
+                if (_playersDead[position.x])
                     continue;
-                if (player.y < 0)
-                    StartCoroutine(KillPlayer(player.x));
+
+                if (id == _canoeGameController.gameManager.id)
+                {
+                    var obj = players[position.x];
+                    var me = obj.transform.GetChild(0);
+                    me.gameObject.SetActive(true);
+                    if (position.y < 0)
+                    {
+                        foreach (var button in buttons)
+                            button.SetActive(false);
+                    }
+                }
+                
+                if (position.y < 0)
+                    StartCoroutine(KillPlayer(position.x));
                 else
-                    UpdatePlayerIndex(player.x, player.y);
+                    UpdatePlayerIndex(position.x, position.y);
             }
         }
 
@@ -82,12 +102,12 @@ namespace Games.Canoe
             yield return new WaitForSeconds(moveCooldown);
             _isMoving = false;
         }
-        
+
         public void UpdatePlayerIndex(int index, int waterline)
         {
             if (index < 0 || index >= players.Length) return;
             if (waterline < 0 || waterline >= lanesY.Length) return;
-            
+
             _playersIndex[index] = waterline;
         }
 
@@ -96,9 +116,11 @@ namespace Games.Canoe
             for (int i = 0; i < players.Length; i++)
             {
                 if (_playersDead[i]) continue;
-                
-                var targetPosition = new Vector3(players[i].transform.position.x, lanesY[_playersIndex[i]], players[i].transform.position.z);
-                players[i].transform.position = Vector3.MoveTowards(players[i].transform.position, targetPosition, moveSpeed * Time.deltaTime);
+
+                var targetPosition = new Vector3(players[i].transform.position.x, lanesY[_playersIndex[i]],
+                    players[i].transform.position.z);
+                players[i].transform.position = Vector3.MoveTowards(players[i].transform.position, targetPosition,
+                    moveSpeed * Time.deltaTime);
             }
         }
 
@@ -106,12 +128,12 @@ namespace Games.Canoe
         {
             _index = index;
         }
-        
+
         public int[] GetPlayersIndexes()
         {
             return _playersIndex;
         }
-        
+
         public IEnumerator KillPlayer(int index)
         {
             _playersDead[index] = true;
@@ -124,7 +146,7 @@ namespace Games.Canoe
         {
             StartCoroutine(MoveUp());
         }
-        
+
         public void PressDown()
         {
             StartCoroutine(MoveDown());
