@@ -438,21 +438,9 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 1590054075}
-        m_TargetAssemblyTypeName: MainButtonClick, Assembly-CSharp
-        m_MethodName: closeModal
-        m_Mode: 2
-        m_Arguments:
-          m_ObjectArgument: {fileID: 1277644158}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 1590054075}
-        m_TargetAssemblyTypeName: MainButtonClick, Assembly-CSharp
-        m_MethodName: deactivateBackdrop
+      - m_Target: {fileID: 1277644164}
+        m_TargetAssemblyTypeName: ModalAnimation, Assembly-CSharp
+        m_MethodName: CloseDialog
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1113,29 +1101,17 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 1590054075}
-        m_TargetAssemblyTypeName: MainButtonClick, Assembly-CSharp
-        m_MethodName: openModal
-        m_Mode: 2
-        m_Arguments:
-          m_ObjectArgument: {fileID: 633691608}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 1590054075}
-        m_TargetAssemblyTypeName: MainButtonClick, Assembly-CSharp
-        m_MethodName: activateBackdrop
-        m_Mode: 1
+      - m_Target: {fileID: 633691608}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
-          m_BoolArgument: 0
+          m_BoolArgument: 1
         m_CallState: 2
 --- !u!114 &146407271
 MonoBehaviour:
@@ -2754,6 +2730,7 @@ GameObject:
   - component: {fileID: 633691611}
   - component: {fileID: 633691610}
   - component: {fileID: 633691609}
+  - component: {fileID: 633691613}
   m_Layer: 5
   m_Name: TutorialModal
   m_TagString: tutorialModal
@@ -2846,6 +2823,20 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: -17}
   m_SizeDelta: {x: 1287.6, y: 876.7}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &633691613
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 633691608}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fc6b25395b6016040965b577b06af291, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  box: {fileID: 633691612}
+  backdrop: {fileID: 28113139}
 --- !u!1 &658811911
 GameObject:
   m_ObjectHideFlags: 0
@@ -3576,21 +3567,9 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 1590054075}
-        m_TargetAssemblyTypeName: MainButtonClick, Assembly-CSharp
-        m_MethodName: closeModal
-        m_Mode: 2
-        m_Arguments:
-          m_ObjectArgument: {fileID: 542713041}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 1590054075}
-        m_TargetAssemblyTypeName: MainButtonClick, Assembly-CSharp
-        m_MethodName: deactivateBackdrop
+      - m_Target: {fileID: 542713046}
+        m_TargetAssemblyTypeName: Customize, Assembly-CSharp
+        m_MethodName: ConfirmChanges
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -3600,9 +3579,9 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 542713046}
-        m_TargetAssemblyTypeName: Customize, Assembly-CSharp
-        m_MethodName: ConfirmChanges
+      - m_Target: {fileID: 542713047}
+        m_TargetAssemblyTypeName: ModalAnimation, Assembly-CSharp
+        m_MethodName: CloseDialog
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -4523,6 +4502,7 @@ GameObject:
   - component: {fileID: 1277644161}
   - component: {fileID: 1277644160}
   - component: {fileID: 1277644159}
+  - component: {fileID: 1277644164}
   m_Layer: 5
   m_Name: PlayModal
   m_TagString: Untagged
@@ -4629,6 +4609,20 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 1062, y: 859.95}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1277644164
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1277644158}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fc6b25395b6016040965b577b06af291, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  box: {fileID: 1277644163}
+  backdrop: {fileID: 28113139}
 --- !u!1 &1341330240
 GameObject:
   m_ObjectHideFlags: 0
@@ -5664,7 +5658,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 542713041}
+      - m_Target: {fileID: 1277644158}
         m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
         m_MethodName: SetActive
         m_Mode: 6

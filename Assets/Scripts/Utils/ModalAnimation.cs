@@ -11,8 +11,7 @@ public class ModalAnimation : MonoBehaviour
     {
         backdrop.SetActive(true);
         CanvasGroup background = backdrop.GetComponent<CanvasGroup>();
-        background.alpha = 0;
-        background.LeanAlpha(0, 0.5f);
+        background.LeanAlpha(0.5f, 0.5f);
         box.localPosition = new Vector2(0, -Screen.height);
         box.LeanMoveLocalY(0, 0.5f).setEaseOutExpo().delay = 0.1f;
     }
@@ -20,7 +19,7 @@ public class ModalAnimation : MonoBehaviour
     public void CloseDialog()
     {
         CanvasGroup background = backdrop.GetComponent<CanvasGroup>();
-        background.LeanAlpha(0.5f, 1f);
+        background.LeanAlpha(0f, 1f);
         box.LeanMoveLocalY(-Screen.height, 0.5f).setEaseInExpo().setOnComplete(onComplete);
     }
 
