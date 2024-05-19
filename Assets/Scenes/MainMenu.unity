@@ -133,6 +133,7 @@ GameObject:
   - component: {fileID: 28113140}
   - component: {fileID: 28113142}
   - component: {fileID: 28113141}
+  - component: {fileID: 28113143}
   m_Layer: 5
   m_Name: Backdrop
   m_TagString: menuBackdrop
@@ -172,7 +173,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.08235294, g: 0.09019608, b: 0.20784314, a: 0.69803923}
+  m_Color: {r: 0.08235294, g: 0.09019608, b: 0.20784314, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -197,6 +198,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 28113139}
   m_CullTransparentMesh: 1
+--- !u!225 &28113143
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 28113139}
+  m_Enabled: 1
+  m_Alpha: 0
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &87738728
 GameObject:
   m_ObjectHideFlags: 0
@@ -501,6 +514,7 @@ GameObject:
   - component: {fileID: 102741330}
   - component: {fileID: 102741335}
   - component: {fileID: 102741334}
+  - component: {fileID: 102741336}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -611,7 +625,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0}
+  m_Color: {r: 0, g: 0, b: 0, a: 0}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -636,6 +650,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 102741329}
   m_CullTransparentMesh: 1
+--- !u!225 &102741336
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 102741329}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &125521437
 GameObject:
   m_ObjectHideFlags: 0
@@ -942,25 +968,13 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
-      - m_Target: {fileID: 28113139}
+      - m_Target: {fileID: 542713041}
         m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
         m_MethodName: SetActive
         m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 1
-        m_CallState: 2
-      - m_Target: {fileID: 1590054075}
-        m_TargetAssemblyTypeName: MainButtonClick, Assembly-CSharp
-        m_MethodName: openModal
-        m_Mode: 2
-        m_Arguments:
-          m_ObjectArgument: {fileID: 542713041}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -2491,6 +2505,7 @@ GameObject:
   - component: {fileID: 542713043}
   - component: {fileID: 542713042}
   - component: {fileID: 542713046}
+  - component: {fileID: 542713047}
   m_Layer: 5
   m_Name: CustomizeModal
   m_TagString: customizeModal
@@ -2596,6 +2611,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _inputField: {fileID: 1908189339}
+--- !u!114 &542713047
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 542713041}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fc6b25395b6016040965b577b06af291, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  box: {fileID: 542713045}
+  backdrop: {fileID: 28113139}
 --- !u!1 &583351657
 GameObject:
   m_ObjectHideFlags: 0
@@ -2619,7 +2648,7 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 583351657}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -5635,29 +5664,17 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 1590054075}
-        m_TargetAssemblyTypeName: MainButtonClick, Assembly-CSharp
-        m_MethodName: openModal
-        m_Mode: 2
-        m_Arguments:
-          m_ObjectArgument: {fileID: 1277644158}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 1590054075}
-        m_TargetAssemblyTypeName: MainButtonClick, Assembly-CSharp
-        m_MethodName: activateBackdrop
-        m_Mode: 1
+      - m_Target: {fileID: 542713041}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
-          m_BoolArgument: 0
+          m_BoolArgument: 1
         m_CallState: 2
 --- !u!114 &1552560262
 MonoBehaviour:
