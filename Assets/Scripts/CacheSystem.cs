@@ -8,31 +8,34 @@ public static class CacheSystem
 {
     private static string getCachingPath()
     {
-        return Application.persistentDataPath + "/test.sofr";
+        return Application.persistentDataPath + "/playerData.sofr";
     }
 
-    public static void saveTest()
+    public static void savePlayerData(PlayerData playerData)
     {
         BinaryFormatter formatter = new BinaryFormatter();
         string path = getCachingPath();
         FileStream fs = new FileStream(path, FileMode.Create);
-        formatter.Serialize(fs, "dedezedzz");
+        formatter.Serialize(fs, playerData);
         fs.Close();
     }
 
-    public static string loadTest()
+    public static PlayerData loadPlayerData()
     {
-        string result = null;
+        PlayerData result = new PlayerData();
         string path = getCachingPath();
         if (File.Exists(path))
         {
             BinaryFormatter formatter = new BinaryFormatter();
             FileStream fs = new FileStream(path, FileMode.Open);
-            result = formatter.Deserialize(fs) as string;
+            result = formatter.Deserialize(fs) as PlayerData;
             fs.Close();
         }
         else
         {
+            result.name = "John Doe";
+            result.profilePictureIdx = 0;
+            result.id = "no_id";
             Debug.LogWarning("No cache found");
         }
         return result;

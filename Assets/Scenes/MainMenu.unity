@@ -1513,7 +1513,7 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
-  m_hasFontAssetChanged: 1
+  m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
 --- !u!222 &251806251
@@ -2240,6 +2240,7 @@ GameObject:
   - component: {fileID: 542713044}
   - component: {fileID: 542713043}
   - component: {fileID: 542713042}
+  - component: {fileID: 542713046}
   m_Layer: 5
   m_Name: CustomizeModal
   m_TagString: Untagged
@@ -2332,6 +2333,20 @@ RectTransform:
   m_AnchoredPosition: {x: 2.02, y: -14.5}
   m_SizeDelta: {x: 761, y: 825.25}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &542713046
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 542713041}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fa560bc1ee3f91c4cbb72df5ea442c75, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _inputField: {fileID: 1908189339}
+  _profilePicture: {fileID: 467365996}
 --- !u!1 &583351657
 GameObject:
   m_ObjectHideFlags: 0
@@ -3062,7 +3077,7 @@ GameObject:
   - component: {fileID: 815561136}
   - component: {fileID: 815561135}
   m_Layer: 5
-  m_Name: FooterButton
+  m_Name: ConfirmationButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3146,6 +3161,18 @@ MonoBehaviour:
       - m_Target: {fileID: 1590054075}
         m_TargetAssemblyTypeName: MainButtonClick, Assembly-CSharp
         m_MethodName: deactivateBackdrop
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 542713046}
+        m_TargetAssemblyTypeName: Customize, Assembly-CSharp
+        m_MethodName: ConfirmChanges
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -3766,6 +3793,50 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _imagesPath: Assets/Assets/UI/Lobby/Profile Pictures/
   _image: {fileID: 964615440}
+--- !u!1 &969844976
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 969844977}
+  - component: {fileID: 969844978}
+  m_Layer: 0
+  m_Name: Player
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &969844977
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 969844976}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -1.9790336, y: 1.6796407, z: 6.6249547}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &969844978
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 969844976}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 366ddbfd3bf0f964f9adfab964769b63, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &970944190
 GameObject:
   m_ObjectHideFlags: 0
@@ -6225,7 +6296,7 @@ GameObject:
   - component: {fileID: 1908189339}
   - component: {fileID: 1908189342}
   m_Layer: 5
-  m_Name: InputField (TMP)
+  m_Name: NicknameInput
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6833,3 +6904,4 @@ SceneRoots:
   - {fileID: 1566236880}
   - {fileID: 1590054076}
   - {fileID: 152565189}
+  - {fileID: 969844977}

@@ -12,9 +12,11 @@ public class GameManager : MonoBehaviour
 
     private SocketIOUnity _client;
     private string _id;
+    public PlayerData data;
 
     private async void Start()
     {
+        this.data = CacheSystem.loadPlayerData();
         if (GameManager.Instance == null)
             return;
         var uri = new Uri("http://localhost:3000");
@@ -28,6 +30,8 @@ public class GameManager : MonoBehaviour
         this.RegisterBaseEvents();
 
         _client.Emit("user/new");
+        this.data = CacheSystem.loadPlayerData();
+        data.id = _id;
     }
 
     private void Awake()
@@ -40,13 +44,6 @@ public class GameManager : MonoBehaviour
 
         Instance = this;
         DontDestroyOnLoad(gameObject);
-        string cache = CacheSystem.loadTest();
-        if (cache != null)
-        {
-            Debug.Log(cache);
-        }
-
-        CacheSystem.saveTest();
     }
 
     private struct NewClient
