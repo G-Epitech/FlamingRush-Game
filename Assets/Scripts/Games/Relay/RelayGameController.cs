@@ -26,7 +26,7 @@ public class RelayGameController : MonoBehaviour
             }
             else
             {
-                // Debug.Log("Next Player's Turn");
+                // Debug.Log("Next Player's Turn"); 
                 players[currentPlayerIndex + 1].transform.Translate(Vector3.left * (Time.deltaTime * 2));
             }
         }
