@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using Utils;
 
 public class FlameManager : MonoBehaviour
 {
@@ -16,12 +17,11 @@ public class FlameManager : MonoBehaviour
     [SerializeField] private Sprite[] vignetteSprites;
     [SerializeField] private SpriteRenderer effect;
     [SerializeField] private ParticleSystem[] fire;
-    [SerializeField] private ParticleSystem[] floor;
 
     void Start()
     {
         var gameManager = GameObject.FindObjectOfType<GameManager>();
-        uint lf = 1;
+        uint lf = gameManager.gameData.lifes;
 
         if (lf == 3)
         {
@@ -30,10 +30,10 @@ public class FlameManager : MonoBehaviour
         }
 
         SetView(lf + 1);
-        StartCoroutine(LifeAnimation(lf + 1));
+        StartCoroutine(LifeAnimation(lf + 1, gameManager));
     }
 
-    private IEnumerator LifeAnimation(uint lf)
+    private IEnumerator LifeAnimation(uint lf, GameManager gm)
     {
         Transform lifeTransform = lifes[lf - 1].transform;
         Vector3 originalScale = lifeTransform.localScale;
@@ -60,6 +60,16 @@ public class FlameManager : MonoBehaviour
         }
 
         lifeTransform.localScale = originalScale;
+
+        yield return new WaitForSeconds(2);
+        gm.setReady();
+        
+        // End of the game
+        if (lf - 1 <= 0)
+        {
+            var fade = GameObject.FindObjectOfType<Fade>();
+            fade.FadeIn("Score");
+        }
     }
 
     private void SetView(uint lf)

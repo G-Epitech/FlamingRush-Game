@@ -23,6 +23,8 @@ public class GameManager : MonoBehaviour
     private async void Start()
     {
         this.data = CacheSystem.loadPlayerData();
+        this.gameData = new GameData();
+
         cacheExists = true;
         if (CacheSystem.cacheExists() == false)
         {
@@ -32,6 +34,7 @@ public class GameManager : MonoBehaviour
         }
         if (Instance == null)
             return;
+        
         var uri = new Uri("http://localhost:3000");
         client = new SocketIOUnity(uri, new SocketIOOptions
         {
