@@ -37,6 +37,7 @@ namespace Games.Canoe
         public State State;
         private void OnDestroy()
         {
+            Announcement.announce(Announcement.AnnouncementType.FINISH);
             gameManager?.client.Off("games/update");
         }
 
