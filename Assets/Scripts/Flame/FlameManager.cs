@@ -6,21 +6,22 @@ using UnityEngine.UI;
 
 public class FlameManager : MonoBehaviour
 {
-    [SerializeField] private Image flame;
+    [SerializeField] private SpriteRenderer flame;
     [SerializeField] private Sprite[] flameSprites;
-    [SerializeField] private Image[] lifes;
+    [SerializeField] private SpriteRenderer[] lifes;
     [SerializeField] private Sprite[] lifesSprites;
-    [SerializeField] private Image streak;
+    [SerializeField] private SpriteRenderer streak;
     [SerializeField] private Sprite[] streakSprites;
-    [SerializeField] private Image vignette;
+    [SerializeField] private SpriteRenderer vignette;
     [SerializeField] private Sprite[] vignetteSprites;
-    [SerializeField] private Image effect;
-    [SerializeField] private ParticleSystem fire;
+    [SerializeField] private SpriteRenderer effect;
+    [SerializeField] private ParticleSystem[] fire;
+    [SerializeField] private ParticleSystem[] floor;
 
     void Start()
     {
         var gameManager = GameObject.FindObjectOfType<GameManager>();
-        uint lf = 2;
+        uint lf = 1;
 
         if (lf == 3)
         {
@@ -36,7 +37,7 @@ public class FlameManager : MonoBehaviour
     {
         Transform lifeTransform = lifes[lf - 1].transform;
         Vector3 originalScale = lifeTransform.localScale;
-        Vector3 targetScale = new Vector3(1.25f, 1.25f, 1.25f);
+        Vector3 targetScale = new Vector3(124.6f, 124.6f, 124.6f);
 
         float elapsedTime = 0f;
         while (elapsedTime < 2)
@@ -70,12 +71,21 @@ public class FlameManager : MonoBehaviour
         vignette.sprite = vignetteSprites[1];
         streak.sprite = streakSprites[lf];
         effect.gameObject.SetActive(true);
-        fire.gameObject.SetActive(true);
+        foreach (var system in fire)
+        {
+            system.gameObject.SetActive(true);
+        }
 
         if (lf == 2)
         {
             effect.gameObject.SetActive(false);
             lifes[2].sprite = lifesSprites[0];
+            
+            foreach (var system in fire)
+            {
+                var emmision = system.emission;
+                emmision.rateOverTime = 30.0f;
+            }
         }
 
         if (lf == 1)
@@ -84,11 +94,21 @@ public class FlameManager : MonoBehaviour
             vignette.sprite = vignetteSprites[0];
             lifes[2].sprite = lifesSprites[0];
             lifes[1].sprite = lifesSprites[0];
+            
+            foreach (var system in fire)
+            {
+                var emmision = system.emission;
+                emmision.rateOverTime = 10.0f;
+            }
         }
 
         if (lf == 0)
         {
-            fire.gameObject.SetActive(false);
+            foreach (var system in fire)
+            {
+                system.gameObject.SetActive(false);
+            }
+
             effect.gameObject.SetActive(false);
             flame.sprite = flameSprites[0];
             vignette.sprite = vignetteSprites[0];
@@ -103,6 +123,14 @@ public class FlameManager : MonoBehaviour
         if (effect.gameObject.activeSelf)
         {
             effect.transform.Rotate(0f, 0f, -0.35f * (Time.deltaTime * 360));
+        }
+
+        if (vignette.sprite == vignetteSprites[0])
+        {
+            float alpha = Mathf.PingPong(Time.time * 2.5f, 1.0f - 0.1f) + 0.1f;
+            Color color = vignette.color;
+            color.a = alpha;
+            vignette.color = color;
         }
     }
 }

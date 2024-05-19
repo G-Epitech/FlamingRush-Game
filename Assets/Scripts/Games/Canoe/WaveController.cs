@@ -19,7 +19,6 @@ namespace Games.Canoe
             wave.AddComponent<Image>().sprite = sprite;
             var mainCanvas = GameObject.Find("Waves");
             wave.transform.SetParent(mainCanvas.transform);
-            Debug.Log("Wave generated at " + position);
             wave.transform.localScale = new Vector3(1, 1, 1);
             var rect = wave.GetComponent<RectTransform>();
             rect.anchoredPosition = position;
