@@ -10,6 +10,7 @@ namespace Games.Canoe
         [SerializeField] public Animator animator;
         [SerializeField] public Sprite deadSprite;
         [SerializeField] public int ID;
+        private CanoeGameController _canoeGameController;
     
         /// <summary>
         /// This Function accelerates ALL canoes in the scene.
@@ -20,23 +21,23 @@ namespace Games.Canoe
             animator.speed = speed;
         }
 
+        private void Start()
+        {
+            _canoeGameController = FindObjectOfType<CanoeGameController>();
+        }
+
         public void OnTriggerEnter2D(Collider2D other)
         {
-            var scrollController = GameObject.FindObjectOfType<ScrollController>();
-            var oldSpeed = animator.speed;
+            var scrap = other.GetComponent<ScrapMove>();
+            if (scrap == null) return;
+            
+            _canoeGameController.EmitCollision(scrap.uuid, scrap.type);
             
             Destroy(other.gameObject);
-            Debug.Log("I'm DEAD !");
             animator.enabled = false;
             
             var img = gameObject.GetComponent<Image>();
             img.sprite = deadSprite;
-            StartCoroutine(scrollController.KillPlayer(ID));
-            Debug.Log("I'm really 5 DEAD !");
-            // StartCoroutine(Die());
-            Debug.Log("I'm really 4 DEAD !");
         }
-        
-
     }
 }

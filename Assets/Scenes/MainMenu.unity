@@ -1181,8 +1181,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6cee6fe992d1b41ddae5ad3a4011d29e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _tutorialModal: {fileID: 0}
-  _menuBackdrop: {fileID: 0}
+  _tutorialModal: {fileID: 633691608}
+  _menuBackdrop: {fileID: 28113139}
   cacheExists: 0
 --- !u!4 &152565189
 Transform:
@@ -4202,7 +4202,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _imagesPath: Assets/Assets/UI/Lobby/Profile Pictures/
   _image: {fileID: 964615440}
-  customizeModal: {fileID: 0}
+  customizeModal: {fileID: 542713041}
 --- !u!1 &970944190
 GameObject:
   m_ObjectHideFlags: 0
