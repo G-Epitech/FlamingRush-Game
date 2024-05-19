@@ -43,7 +43,6 @@ namespace Games.Canoe
         public void Update()
         {
             Sync();
-            Compute();
             Render();
         }
 
@@ -60,32 +59,6 @@ namespace Games.Canoe
                 else
                     UpdatePlayerIndex(player.x, player.y);
             }
-        }
-
-        private void Compute()
-        {            
-            if (_index < 0) return;
-            
-            var velocity = scrollRect.velocity;
-
-            if (!_isMoving && Mathf.Abs(velocity.y) > velocityThreshold)
-            {
-                switch (velocity.y)
-                {
-                    case > 0:
-                        StartCoroutine(MoveUp());
-                        break;
-                    case < 0:
-                        StartCoroutine(MoveDown());
-                        break;
-                }
-
-                scrollRect.velocity = Vector2.zero;
-            }
-            
-            _playersIndex[_index] = _currentLaneIndex;
-            
-            scrollRect.velocity = Vector2.zero;
         }
 
         private IEnumerator MoveUp()
@@ -145,6 +118,16 @@ namespace Games.Canoe
             yield return new WaitForSeconds(2.5f);
             players[index].SetActive(false);
             _animator.enabled = true;
+        }
+
+        public void PressUp()
+        {
+            StartCoroutine(MoveUp());
+        }
+        
+        public void PressDown()
+        {
+            StartCoroutine(MoveDown());
         }
     }
 }
