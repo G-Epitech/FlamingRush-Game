@@ -6,6 +6,7 @@ namespace Games.Canoe
 {
     public class WaveController : MonoBehaviour
     {
+        [SerializeField] public float waveSpeed = 2f;
         [SerializeField] public Sprite BigWaveSprite;
         [SerializeField] public Sprite SmallWaveSprite;
         [SerializeField] public Vector2[] wavePositions = new Vector2[] { new Vector2(0, 0), new Vector2(0, 0) };
@@ -23,7 +24,8 @@ namespace Games.Canoe
             var rect = wave.GetComponent<RectTransform>();
             rect.anchoredPosition = position;
             wave.GetComponent<RectTransform>().sizeDelta = new Vector2(size.x, size.y);
-            wave.AddComponent<WaveMove>();
+            var move = wave.AddComponent<WaveMove>();
+            move.speed = waveSpeed;
         }
 
         private void Start()
@@ -31,8 +33,13 @@ namespace Games.Canoe
             // Start the coroutine to generate waves at random intervals
             StartCoroutine(GenerateWavesContinuously());
         }
+        
+        public void SetWaveSpeed(float speed)
+        {
+            waveSpeed = speed;
+        }
 
-        private IEnumerator GenerateWavesContinuously()
+        public IEnumerator GenerateWavesContinuously()
         {
             while (true)
             {

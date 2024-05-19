@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 namespace Games.Canoe
@@ -13,6 +14,11 @@ namespace Games.Canoe
         public void Accelerate(float speed)
         {
             animator.speed = speed;
+        }
+
+        public void OnCollisionEnter2D(Collision2D other)
+        {
+            Debug.Log("Collision detected");
         }
     }
 }

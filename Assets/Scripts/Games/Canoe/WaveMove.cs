@@ -5,7 +5,7 @@ namespace Games.Canoe
 {
     public class WaveMove : MonoBehaviour
     {
-        public float speed = 2f; // Vitesse de déplacement
+        public float speed = 2f;
 
         private void Update()
         {
