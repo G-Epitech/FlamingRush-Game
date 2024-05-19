@@ -30,10 +30,10 @@ public class FlameManager : MonoBehaviour
         }
 
         SetView(lf + 1);
-        StartCoroutine(LifeAnimation(lf + 1));
+        StartCoroutine(LifeAnimation(lf + 1, gameManager));
     }
 
-    private IEnumerator LifeAnimation(uint lf)
+    private IEnumerator LifeAnimation(uint lf, GameManager gm)
     {
         Transform lifeTransform = lifes[lf - 1].transform;
         Vector3 originalScale = lifeTransform.localScale;
@@ -60,12 +60,13 @@ public class FlameManager : MonoBehaviour
         }
 
         lifeTransform.localScale = originalScale;
+
+        yield return new WaitForSeconds(2);
+        gm.setReady();
         
         // End of the game
         if (lf - 1 <= 0)
         {
-            yield return new WaitForSeconds(2);
-            
             var fade = GameObject.FindObjectOfType<Fade>();
             fade.FadeIn("Score");
         }
