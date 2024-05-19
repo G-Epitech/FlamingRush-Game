@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
@@ -20,6 +21,12 @@ namespace Games.Canoe
         private CanoeGameController _canoeGameController;
         private Animator _animator;
 
+        private void Awake()
+        {
+            _canoeGameController = FindObjectOfType<CanoeGameController>();
+            _animator = FindObjectOfType<Animator>();
+        }
+
         private void Start()
         {
             _currentLaneIndex = 0;
@@ -27,8 +34,6 @@ namespace Games.Canoe
             _index = -1;
             _playersIndex = new int[players.Length];
             _playersDead = new bool[players.Length];
-            _canoeGameController = FindObjectOfType<CanoeGameController>();
-            _animator = FindObjectOfType<Animator>();
 
             for (int i = 0; i < _playersIndex.Length; i++)
             {
@@ -50,14 +55,17 @@ namespace Games.Canoe
         {
             if (_canoeGameController.State == null) return;
             _index = _canoeGameController.State.players[_canoeGameController.gameManager.id].x;
-            foreach (var player in _canoeGameController.State.players.Values)
+            foreach (var (id, position) in _canoeGameController.State.players)
             {
-                if (_playersDead[player.x])
+                if (_playersDead[position.x])
                     continue;
-                if (player.y < 0)
-                    StartCoroutine(KillPlayer(player.x));
+
+                var isMe = id == _canoeGameController.gameManager.id;
+                
+                if (position.x < 0)
+                    StartCoroutine(KillPlayer(position.x));
                 else
-                    UpdatePlayerIndex(player.x, player.y);
+                    UpdatePlayerIndex(position.x, position.y);
             }
         }
 

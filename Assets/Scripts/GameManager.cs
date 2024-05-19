@@ -16,6 +16,7 @@ public class GameManager : MonoBehaviour
     public bool cacheExists;
     public SocketIOUnity client { get; private set; }
     public string id { get; private set; }
+    public int order { get; private set; }
     public PlayerData data;
     public GameData gameData;
     
@@ -38,12 +39,13 @@ public class GameManager : MonoBehaviour
         });
         client.JsonSerializer = new NewtonsoftJsonSerializer();
 
-    await client.ConnectAsync();
+        await client.ConnectAsync();
 
         this.RegisterBaseEvents();
 
         client.Emit("user/new");
         data.id = id;
+        data.order = order;
     }
 
     private void Awake()
@@ -70,6 +72,7 @@ public class GameManager : MonoBehaviour
         public int profilePicture;
         public bool owner;
         public bool ready;
+        public int order;
     }
 
     private struct Room
@@ -109,7 +112,7 @@ public class GameManager : MonoBehaviour
                 if (isMe)
                 {
                     me = user;
-                    this.data.position = i;
+                    this.data.order = i;
                 }
 
                 if (!user.ready)
@@ -200,7 +203,7 @@ public class GameManager : MonoBehaviour
     {
         client.Emit("room/user-ready");
     }
-    
+
     public void startRound()
     {
         client.Emit("room/start-round");
