@@ -40,7 +40,10 @@ namespace Games.Canoe
 
         public void Kill()
         {
-            Announcement.announce(Announcement.AnnouncementType.LOSE);
+            var me = _canoeGameController.State.players[_canoeGameController.gameManager.id];
+
+            if (me.x == ID)
+                Announcement.announce(Announcement.AnnouncementType.LOSE);
             animator.enabled = false;
             var img = gameObject.GetComponent<Image>();
             img.sprite = deadSprite;
