@@ -24,6 +24,7 @@ public static class CacheSystem
     {
         PlayerData result = new PlayerData();
         string path = getCachingPath();
+        Debug.Log(path);
         if (File.Exists(path))
         {
             BinaryFormatter formatter = new BinaryFormatter();

@@ -33,8 +33,8 @@ public class Tutorial : MonoBehaviour
             {
                 GameObject gameObject = GameObject.FindGameObjectWithTag("tutorialModal");
                 gameObject.SetActive(false);
-                gameObject = GameObject.FindGameObjectWithTag("menuBackdrop");
-                gameObject.SetActive(false);
+                    gameObject = GameObject.FindGameObjectWithTag("menuBackdrop");
+                    gameObject.SetActive(false);
                 _imageIndex = 0;
                 return;
             }

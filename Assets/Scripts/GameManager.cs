@@ -13,10 +13,16 @@ public class GameManager : MonoBehaviour
     private SocketIOUnity _client;
     private string _id;
     public PlayerData data;
+    public bool cacheExists;
 
     private async void Start()
     {
+        cacheExists = true;
         this.data = CacheSystem.loadPlayerData();
+        if (data.id == "no_id")
+        {
+            this.cacheExists = false;
+        }
         if (GameManager.Instance == null)
             return;
         var uri = new Uri("http://localhost:3000");
@@ -30,7 +36,6 @@ public class GameManager : MonoBehaviour
         this.RegisterBaseEvents();
 
         _client.Emit("user/new");
-        this.data = CacheSystem.loadPlayerData();
         data.id = _id;
     }
 
@@ -44,6 +49,29 @@ public class GameManager : MonoBehaviour
 
         Instance = this;
         DontDestroyOnLoad(gameObject);
+    }
+
+    private void OnEnable()
+    {
+        SceneManager.sceneLoaded += OnSceneLoaded;
+    }
+
+    void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        Debug.Log(SceneManager.loadedSceneCount);
+        if (!cacheExists)
+            return;
+        GameObject gameObject = GameObject.FindGameObjectWithTag("tutorialModal");
+        if (gameObject != null)
+        {
+            Debug.Log("start tutorial");
+            gameObject.SetActive(true);
+        }
+        gameObject = GameObject.FindGameObjectWithTag("menuBackdrop");
+        if (gameObject != null)
+        {
+            gameObject.SetActive(true);
+        }
     }
 
     private struct NewClient
