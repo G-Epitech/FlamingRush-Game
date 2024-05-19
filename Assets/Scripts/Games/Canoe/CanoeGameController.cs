@@ -45,6 +45,7 @@ namespace Games.Canoe
         {
             gameManager = FindObjectOfType<GameManager>();
             gameManager?.client.OnUnityThread("games/state", response => UpdateState(response.GetValue<State>()));
+            Announcement.announce(Announcement.AnnouncementType.START);
         }
         
         private void UpdateState(State state)
