@@ -1,4 +1,5 @@
-# FlamingRush-Game
+![image](https://github.com/G-Epitech/FlamingRush-Game/assets/58297773/e99c392a-f522-4436-bb78-70621391751d)
+
 🔥 Game of the Epitech Jam - May 2024
 
 This part of the game was developed with [Unity](https://unity.com/fr).\
